@@ -302,7 +302,7 @@ const scrollCategories = (direction) => {
                     height={240}
                     src={slide.image}
                     alt={`Slide ${idx + 1}`}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-fit"
                     priority={idx < 2}
                   />
                 </div>
