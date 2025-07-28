@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useMemo } from "react";
-import {FaMobileAlt,FaLaptop,FaTshirt,FaUtensils,FaPlane,FaCreditCard,FaBook,FaShieldAlt,FaServer,FaHome,FaHandHoldingUsd,FaPumpSoap,FaClock,FaUniversity,FaFutbol,FaBaby,FaCapsules,FaArrowRight,FaMoneyBill} from "react-icons/fa";
+import React, { useEffect,useRef, useState, useMemo } from "react";
+import {FaMobileAlt,FaLaptop,FaTshirt,FaUtensils,FaPlane,FaCreditCard,FaBook,FaShieldAlt,FaServer,FaHome,FaHandHoldingUsd,FaPumpSoap,FaClock,FaUniversity,FaFutbol,FaBaby,FaCapsules,FaArrowRight,FaMoneyBill,FaChevronLeft, FaChevronRight} from "react-icons/fa";
 import Link from "next/link";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
@@ -234,7 +234,7 @@ const useIsMobile = () => {
 
 const SectionHeader = React.memo(({ title, href, linkText = "View All" }) => (
   <div className="flex justify-between items-center px-2 my-4">
-    <h2 className="text-base md:text-xl xl:text-2xl font-bold">{title}</h2>
+    <h2 className="text-base md:text-xl xl:text-2xl font-semibold">{title}</h2>
     {href && (
       <Link href={href} className="text-black text-sm md:text-base font-medium flex items-center gap-1">
         {linkText}
@@ -245,6 +245,18 @@ const SectionHeader = React.memo(({ title, href, linkText = "View All" }) => (
 ));
 
 export default function Home() {
+const categoryScrollRef = useRef(null);
+
+const scrollCategories = (direction) => {
+  const container = categoryScrollRef.current;
+  if (container) {
+    const scrollAmount = 300;
+    container.scrollBy({
+      left: direction === 'left' ? -scrollAmount : scrollAmount,
+      behavior: 'smooth'
+    });
+  }
+};
   const isMobile = useIsMobile();
 // Memoize carousel responsive config
   const responsive = useMemo(() => ({
@@ -280,8 +292,7 @@ export default function Home() {
           autoPlaySpeed={5000}
           draggable
           customTransition="transform 500ms"
-          responsive={responsive}
-        >
+          responsive={responsive}>
           {SLIDES.map((slide, idx) => (
             <div className="mx-2" key={idx}>
               <a href={slide.link} target="_blank" rel="noopener noreferrer">
@@ -302,24 +313,51 @@ export default function Home() {
       </section>
 
  {/* Categories Section */}
-      <section className="xl:ml-7 ml-2 py-6">
-        <h2 className="text-base md:ml-2 md:text-xl xl:text-2xl ml-1 font-bold mb-4">
-          Browse By Category
-        </h2>
-        <div className="flex overflow-x-auto gap-5 py-2 xl:py-4 px-1 scrollbar-hide">
-          {CATEGORIES.map((category, idx) => {
-            const IconComponent = category.icon;
-            return (
-              <div key={idx} className="flex flex-col items-center w-[100px] min-w-[100px] max-w-[100px] cursor-pointer hover:text-[#332B4E] transition outline-1 outline-gray-300 rounded-full p-1 hover:bg-gray-100">
-                <IconComponent size={30} className="text-lg mb-1 text-gray-700" />
-                <span className="text-[11px] text-center truncate w-full">
-                  {category.name}
-                </span>
-              </div>
-            );
-          })}
-        </div>
-      </section>
+{/* Categories Section */}
+<section className="xl:ml-7 ml-2 py-6 relative">
+  <h2 className="text-base md:ml-2 md:text-xl xl:text-2xl ml-1 font-semibold mb-4">
+    Browse By Category
+  </h2>
+  
+  <div className="relative group">
+    {/* Left Swipe Button */}
+    <button
+      onClick={() => scrollCategories('left')}
+      className="hidden xl:block absolute left-1 top-1/2 -translate-y-1/2 z-10  bg-gray-100 border border-gray-400 shadow-2xl rounded-full p-4 cursor-pointer duration-500 transform hover:scale-110 active:scale-95"
+      aria-label="Scroll left"
+    >
+      <FaChevronLeft className="text-black text-lg drop-shadow-sm" />
+    </button>
+
+    {/* Right Swipe Button */}
+    <button
+      onClick={() => scrollCategories('right')}
+      className="hidden xl:block absolute right-1 top-1/2 -translate-y-1/2 z-10 bg-gray-100 border border-gray-400 shadow-2xl rounded-full p-4 cursor-pointer duration-500 transform hover:scale-110 active:scale-95"
+      aria-label="Scroll right"
+    >
+      <FaChevronRight className="text-black text-lg drop-shadow-sm" />
+    </button>
+
+    {/* Categories Container */}
+    <div 
+      ref={categoryScrollRef}
+      className="flex overflow-x-auto gap-5 py-2 xl:py-4 px-1 scrollbar-hide scroll-smooth"
+      style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+    >
+      {CATEGORIES.map((category, idx) => {
+        const IconComponent = category.icon;
+        return (
+          <div key={idx} className="flex flex-col items-center w-[100px] min-w-[100px] max-w-[100px] cursor-pointer hover:text-[#332B4E] transition outline-1 outline-gray-300 rounded-full p-1 hover:bg-gray-100">
+            <IconComponent size={30} className="text-lg mb-1 text-gray-700" />
+            <span className="text-[11px] text-center truncate w-full">
+              {category.name}
+            </span>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</section>
 
       {/* Flash Deal Section */}
       <section className="my-6">
@@ -339,34 +377,33 @@ export default function Home() {
       </section>
 
       {/* Loan & Credit Card Section */}
-    <section className="xl:ml-7 ml-2 py-8">
-  <SectionHeader title="Loan & Card Deals" href="/bankingdeals" />
+ <section className="xl:ml-7 ml-1.5 py-7 ">   
+  <SectionHeader title="Loan & Card Deals" href="/bankingdeals" />      
   
-  <div className="flex gap-6 overflow-x-auto md:overflow-x-visible scrollbar-hide">
-    {/* Credit Cards */}
-    <div className="flex flex-col xl:flex-row min-w-[320px] sm:min-w-[360px] md:min-w-0 md:w-full bg-[#f5f8ff] p-4 sm:p-5 rounded-2xl gap-4 sm:gap-5 flex-shrink-0 md:flex-shrink">
-      <div className="flex gap-3 xl:gap-0 xl:flex-col items-center justify-center bg-gray-100 bg-opacity-40 rounded-xl px-4 sm:px-6 py-4 sm:py-5 text-center shadow-sm md:min-w-fit xl:min-w-[140px]">
-        <FaCreditCard className="text-3xl sm:text-4xl mb-1 xl:mb-3" />
-        <p className="text-sm sm:text-base font-medium text-center">Credit Cards</p>
-      </div>
-      <div className="grid grid-cols-2 gap-3 sm:gap-4 w-full">
-        <Loanandcardcomp items={CREDIT_CARDS} type="creditCard" />
-      </div>
-    </div>
+  <div className="flex gap-4 overflow-x-auto lg:overflow-x-visible">     
+    {/* Credit Cards */}     
+    <div className="flex flex-col xl:flex-row min-w-[300px] sm:min-w-[340px] lg:min-w-0 lg:w-full bg-[#f5f8ff] p-2 rounded-2xl gap-3 flex-shrink-0 lg:flex-shrink">       
+      <div className="flex gap-3 xl:gap-0 xl:flex-col items-center justify-center bg-gray-100 bg-opacity-40 rounded-xl px-3 py-2 text-center shadow-sm lg:min-w-fit">         
+        <FaCreditCard className="text-4xl mb-2" />         
+        <p className="text-base font-semibold text-center pb-2">Credit Cards</p>       
+      </div>       
+      <div className="grid grid-cols-2 gap-5 w-full">         
+        <Loanandcardcomp items={CREDIT_CARDS} type="creditCard" />       
+      </div>     
+    </div>          
     
-    {/* Bank Loans */}
-    <div className="flex flex-col xl:flex-row min-w-[320px] sm:min-w-[360px] md:min-w-0 md:w-full bg-[#f5f8ff] p-4 sm:p-5 rounded-2xl gap-4 sm:gap-5 flex-shrink-0 md:flex-shrink">
-      <div className="flex gap-3 xl:gap-0 xl:flex-col items-center justify-center bg-gray-100 bg-opacity-40 rounded-xl px-4 sm:px-6 py-4 sm:py-5 text-center shadow-sm md:min-w-fit xl:min-w-[140px]">
-        <FaMoneyBill className="text-3xl sm:text-4xl mb-1 xl:mb-3"/>
-        <p className="text-sm sm:text-base font-medium text-center">Bank Loans</p>
-      </div>
-      <div className="grid grid-cols-2 gap-3 sm:gap-4 w-full">
-        <Loanandcardcomp items={CREDIT_CARDS} type="loan" />
-      </div>
-    </div>
-  </div>
+    {/* Bank Loans */}     
+    <div className="flex flex-col xl:flex-row min-w-[300px] sm:min-w-[340px] lg:min-w-0 lg:w-full bg-[#f5f8ff] p-2 rounded-2xl gap-2 flex-shrink-0 lg:flex-shrink">       
+      <div className="flex gap-3 xl:gap-0 xl:flex-col items-center justify-center bg-gray-100 bg-opacity-40 rounded-xl px-3 py-2 text-center shadow-sm lg:min-w-fit">         
+        <FaMoneyBill className="text-4xl mb-2"/>         
+        <p className="text-base font-semibold text-center pb-2">Bank Loans</p>       
+      </div>       
+      <div className="grid grid-cols-2 gap-5 w-full">         
+        <Loanandcardcomp items={CREDIT_CARDS} type="loan" />       
+      </div>     
+    </div>   
+  </div> 
 </section>
-      
       {/* Top Deal Sections */}
       <section className="xl:ml-7 ml-3 md:py-8 py-3 space-y-4 md:space-y-6">
         {["Flipkart", "Amazon", "Myntra"].map((brand) => (
@@ -388,7 +425,7 @@ export default function Home() {
 
       {/* Cashback Steps Section */}
       <section className="xl:ml-9 ml-3 py-8">
-        <h2 className="text-base md:text-xl font-bold mb-3 md:mb-5">
+        <h2 className="text-base md:text-xl font-semibold mb-3 md:mb-5">
           Four Steps To Save
         </h2>
         <div className="overflow-x-auto md:overflow-x-visible scrollbar-hide">

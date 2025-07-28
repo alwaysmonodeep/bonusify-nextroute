@@ -38,7 +38,7 @@ const WalletDashboard = () => {
               </p>
             </div>
             <div className="flex flex-col pt-10 gap-3">
-              <Link href={'/withdrawl'}><button className="bg-[#332B4E] cursor-pointer text-xs md:text-sm text-white px-5 md:px-6 md:py-4 py-3 rounded-xl font-medium">
+              <Link href={'/withdrawl'}><button className="bg-[#332B4E] cursor-pointer text-xs md:text-sm text-white px-5 md:px-6 py-3 rounded-xl font-semibold">
                 Withdraw Now
               </button></Link>
               <div className="text-xs text-gray-500 text-center">Min: ₹100</div>

@@ -54,9 +54,7 @@ function Footer() {
                 <a href="/" target="_blank" rel="noopener noreferrer" className="hover:text-gray-300 transition-colors">
                   <FaXTwitter className="text-xl" />
                 </a>
-                <a href="/" target="_blank" rel="noopener noreferrer" className="hover:text-gray-300 transition-colors">
-                  <FaLinkedinIn className="text-xl" />
-                </a>
+                
                 <a href="/" target="_blank" rel="noopener noreferrer" className="hover:text-gray-300 transition-colors">
                   <FaTelegramPlane className="text-xl" />
                 </a>
@@ -69,8 +67,8 @@ function Footer() {
             <div className="text-left">
               <h3 className="font-semibold mb-3 mt-18 md:mt-0 text-base">About</h3>
               <ul className="space-y-1 text-sm">
-                <li><Link href={"/"} className="hover:text-gray-300 transition-colors">About Us</Link></li>
-                <li><Link href={"/"} className="hover:text-gray-300 transition-colors">Privacy Policy</Link></li>
+                <li><Link href={"/about-us"} className="hover:text-gray-300 transition-colors">About Us</Link></li>
+                <li><Link href={"/privacy-policy"} className="hover:text-gray-300 transition-colors">Privacy Policy</Link></li>
                 <li><Link href={"/terms"} className="hover:text-gray-300 transition-colors">Terms and Conditions</Link></li>
               </ul>
             </div>
@@ -80,7 +78,7 @@ function Footer() {
               <h3 className="font-semibold mb-3 text-base">Useful Links</h3>
               <ul className="space-y-1 text-sm">
                 <li><Link href={"/"} className="hover:text-gray-300 transition-colors">Become our Partner</Link></li>
-                <li><Link href={"/"} className="hover:text-gray-300 transition-colors">Refer &amp; Earn</Link></li>
+                <li><Link href={"/refer-and-earn"} className="hover:text-gray-300 transition-colors">Refer &amp; Earn</Link></li>
               </ul>
             </div>
 

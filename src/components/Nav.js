@@ -104,7 +104,6 @@ function Nav({ sidebarOpen, setSidebarOpen }) {
             />
           </div>
         </div>
-
         {/* Right Section */}
         <div className="flex items-center gap-6">
           {/* Wallet or Mobile Search */}
@@ -121,12 +120,9 @@ function Nav({ sidebarOpen, setSidebarOpen }) {
           </div>
 
           {/* Notifications */}
-          <div className="flex items-center pr-8">
+          <div className="flex cursor-pointer items-center pr-8" onClick={toggleNotifications}>
             <div className="relative" ref={notificationRef}>
-              <MdNotifications
-                className="text-2xl text-[#332B4E] cursor-pointer hover:text-[#4E897D]"
-                onClick={toggleNotifications}
-              />
+              <MdNotifications className="text-2xl text-[#332B4E] hover:text-gray-600"/>
               {unreadCount > 0 && (
                 <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
                   {unreadCount}

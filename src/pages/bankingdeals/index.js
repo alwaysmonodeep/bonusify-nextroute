@@ -40,9 +40,7 @@ import React, { useState } from "react";
       features: ["Flipkart Cashback", "No Annual Fee"],
     },
   ];
-
 function Bankingdeals() {
- 
   const filterTabs = ["All", "Cards", "Loans", "Others"];
  const [activeFilter, setActiveFilter] = useState(filterTabs[0]);
   const handleFilterChange = (filter) => {
@@ -60,7 +58,7 @@ function Bankingdeals() {
           <button
             key={filter}
             onClick={() => handleFilterChange(filter)}
-            className={`px-3 py-1.5 sm:px-6 sm:py-2 text-sm sm:text-base rounded-lg font-medium transition-all duration-200 ${
+            className={`px-3 py-1.5 cursor-pointer sm:px-6 sm:py-2 text-sm sm:text-base rounded-lg font-medium transition-all duration-200 ${
               activeFilter === filter
                 ? "bg-[#332B4E] text-white shadow-lg"
                 : "bg-white text-gray-600 border border-gray-200 hover:bg-gray-50 hover:border-gray-300"

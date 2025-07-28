@@ -6,7 +6,7 @@ const TopDealComp = ({ title, slides, isMobile, responsive }) => {
   return (
     <div className="py-1">
       <div className="flex justify-between px-2">
-        <h2 className="text-base md:text-xl font-bold mb-4">{title}</h2>
+        <h2 className="text-base md:text-xl font-semibold mb-4">{title}</h2>
         <a
           href="#"
           className="text-black text-sm md:text-base font-medium hover:underline flex items-center"

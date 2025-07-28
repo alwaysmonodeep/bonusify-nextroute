@@ -14,7 +14,6 @@ const termsData = [
     id: 2,
     title: "Account Registration",
     items: [
-      "You must be at least 18 years old to create a Bonusify account",
       "You must provide accurate information during registration",
       "You are responsible for safeguarding your account credentials",
       "You must notify us immediately of any unauthorized use of your account",
