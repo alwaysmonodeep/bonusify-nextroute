@@ -14,7 +14,7 @@ const [activeFilter, setActiveFilter] = useState(filterTabs[0]);
 
   return (
     <div className="w-full mx-auto py-2  xl:px-8">
-      <h2 className="text-2xl font-bold text-gray-800 text-center mb-8">
+      <h2 className="text-xl font-bold text-gray-800 text-center mb-8">
         Popular Stores
       </h2>
 
@@ -24,7 +24,7 @@ const [activeFilter, setActiveFilter] = useState(filterTabs[0]);
           <button
             key={filter}
             onClick={() => handleFilterChange(filter)}
-            className={`px-3 py-1.5 sm:px-6 sm:py-2 text-sm sm:text-base rounded-lg font-medium transition-all duration-200 ${
+            className={`px-3 py-2 sm:px-6 sm:py-2 text-xs sm:text-base rounded-lg font-medium transition-all duration-200 ${
               activeFilter === filter
                 ? "bg-[#332B4E] text-white shadow-lg"
                 : "bg-white text-gray-600 border border-gray-200 hover:bg-gray-50 hover:border-gray-300"
@@ -37,8 +37,8 @@ const [activeFilter, setActiveFilter] = useState(filterTabs[0]);
 
       <div
         className="
-  px-4
-  grid grid-cols-2 gap-4 
+  px-2
+  grid grid-cols-2 gap-2 md:gap-4 
   rows-[35vw]
   md:rows-[14vw]
   md:grid-cols-3

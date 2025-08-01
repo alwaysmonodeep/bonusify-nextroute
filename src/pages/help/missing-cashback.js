@@ -46,7 +46,7 @@ const EmptyState = ({ type }) => {
   const lineWidths = ['w-14', 'w-12', 'w-14', 'w-10'];
 
   return (
-    <div className="text-center max-w-md">
+    <div className="text-center max-w-lg">
       <div className="flex justify-center mb-8">
         <div className="relative">
           {type === 'In Review' && (
@@ -58,7 +58,7 @@ const EmptyState = ({ type }) => {
           
           <div className={`relative w-24 h-28 ${config.bgColor} rounded-xl border-2 ${config.borderColor} flex flex-col p-3 shadow-md`}>
             {config.lineColors.map((color, i) => (
-              <div key={i} className={`${lineWidths[i]} h-1.5 ${color} rounded ${i < 3 ? 'mb-1.5' : ''}`}></div>
+              <div key={i} className={`${lineWidths[i]}  h-1.5 ${color} rounded ${i < 3 ? 'mb-1.5' : ''}`}></div>
             ))}
           </div>
           
@@ -69,7 +69,7 @@ const EmptyState = ({ type }) => {
           )}
         </div>
       </div>
-      <p className="text-gray-600 text-lg leading-relaxed">{config.text}</p>
+      <p className="text-gray-600 text-xs md:text-base leading-relaxed">{config.text}</p>
     </div>
   );
 };
@@ -122,7 +122,7 @@ function Missingcashback() {
 
   return (
     <>
-      <div className='flex flex-col md:flex-row md:my-10 gap-10 p-6 max-w-7xl mx-auto'>
+      <div className='flex flex-col md:flex-row md:my-10 gap-10 p-2 max-w-7xl mx-auto'>
         <div className='flex-1 min-w-0'>
           <PendCashback/>
         </div>
@@ -131,10 +131,10 @@ function Missingcashback() {
           {/* Header with aligned text */}
           <div className="bg-[#332B4E] text-white p-6">
             <div className="flex justify-between items-center">
-              <span className="text-sm font-semibold">🔍 Don't See Your Pending Cashback here?</span>
+              <span className="text-xs md:text-sm font-medium">🔍 Don't See Your Pending Cashback here?</span>
               <button 
                 onClick={() => setIsModalOpen(true)}
-                className="bg-white text-black px-6 py-2 rounded-lg font-semibold hover:bg-gray-50 transition-colors text-sm">
+                className="bg-white text-black px-4 py-2 rounded-lg font-semibold hover:bg-gray-50 transition-colors text-xs md:text-sm">
                 Click here →
               </button>
             </div>
@@ -147,7 +147,7 @@ function Missingcashback() {
                 <button
                   key={tab.name}
                   onClick={() => setActiveTab(tab.name)}
-                  className={`py-4 px-6 border-b-2 font-medium text-sm whitespace-nowrap transition-colors ${
+                  className={`py-4 px-6 text-xs md:text-sm border-b-2 font-medium whitespace-nowrap transition-colors ${
                     activeTab === tab.name
                       ? 'border-blue-600 text-blue-600 bg-white'
                       : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
@@ -182,8 +182,8 @@ function Missingcashback() {
                 <FaArrowLeft className="w-5 h-5 text-gray-600" />
               </button>
               <div>
-                <h2 className="text-2xl font-bold text-gray-900">Where did you shop?</h2>
-                <p className="text-gray-600 mt-1">These are the retailers you have visited in last 30 days</p>
+                <h2 className="text-base md:text-2xl font-bold text-gray-900">Where did you shop?</h2>
+                <p className="text-xs md:text-sm text-gray-600 mt-1">These are the retailers you have visited in last 30 days</p>
               </div>
             </div>
             <button onClick={closeAllModals} className="p-2 hover:bg-gray-100 rounded-full transition-colors">
@@ -202,8 +202,8 @@ function Missingcashback() {
                   <div className="text-center">
                     <div className="text-xl mb-4">{retailer.logo}</div>
                     <div className="mb-2">
-                      <h3 className="font-semibold text-lg text-gray-900">{retailer.name}</h3>
-                      {retailer.subtitle && <p className="text-sm text-gray-500 font-medium">{retailer.subtitle}</p>}
+                      <h3 className="font-semibold text-sm md:text-lg text-gray-900">{retailer.name}</h3>
+                      {retailer.subtitle && <p className="text-xs  text-gray-500 font-medium">{retailer.subtitle}</p>}
                     </div>
                     <p className="text-xs text-gray-600 mt-4">{retailer.autotrack}</p>
                   </div>
@@ -226,7 +226,7 @@ function Missingcashback() {
             </button>
           </div>
 
-          <div className="p-8 text-center">
+          <div className="p-4 text-center">
             {/* Retailer Logo */}
             <div className="flex justify-center mb-6">
               <div className="bg-gray-50 border border-gray-200 rounded-2xl px-8 py-4 inline-flex items-center gap-3">
@@ -235,12 +235,12 @@ function Missingcashback() {
               </div>
             </div>
 
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+            <h2 className="text-sm md:text-xl font-semibold text-gray-900 mb-2">
               Great! Choose the date you shopped on {selectedRetailer?.name}
             </h2>
 
             <div className="mt-12 mb-8">
-              <h3 className="text-xl font-semibold text-gray-900 border-b-2 border-gray-900 inline-block pb-1">
+              <h3 className="text-lg font-semibold text-gray-900 border-b-2 border-gray-900 inline-block pb-1">
                 July
               </h3>
             </div>
@@ -250,7 +250,7 @@ function Missingcashback() {
                 <button
                   key={index}
                   onClick={() => setSelectedDate(dateObj.date)}
-                  className={`w-20 h-20 rounded-full border-2 flex items-center justify-center text-xl font-semibold transition-all ${
+                  className={`w-12 h-12 rounded-full border-2 flex items-center justify-center text-xl font-semibold transition-all ${
                     selectedDate === dateObj.date
                       ? 'bg-blue-600 text-white border-blue-600'
                       : 'bg-white text-blue-600 border-blue-600 hover:bg-blue-50'
@@ -261,7 +261,7 @@ function Missingcashback() {
               ))}
             </div>
 
-            <p className="text-gray-600 mb-8">
+            <p className="text-gray-600 mb-8 text-sm">
               These are the dates you visited {selectedRetailer?.name}
             </p>
 

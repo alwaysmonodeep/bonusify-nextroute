@@ -76,7 +76,7 @@ export default function StorePage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="max-w-7xl mx-auto px-3 md:px-6 py-4 md:py-8">
+      <div className="max-w-7xl mx-auto px-3 md:px-6 py-2 md:py-8">
         <div className="grid lg:grid-cols-3 gap-8">
           
           {/* Sidebar */}
@@ -149,7 +149,7 @@ export default function StorePage() {
                         key={i}
                         src={benefit.image}
                         alt={benefit.alt}
-                        className="w-full h-[260px] sm:h-[290px] md:h-[390px] lg:h-[350px] xl:h-[390px] object-fit flex-shrink-0"
+                        className="w-full h-[210px] sm:h-[290px] md:h-[390px] lg:h-[350px] xl:h-[390px] object-fit flex-shrink-0"
                         onError={(e) => e.target.src = 'https://via.placeholder.com/600x300/f3f4f6/9ca3af?text=Image+Not+Available'}
                       />
                     ))}
@@ -178,14 +178,14 @@ export default function StorePage() {
              
             {/* Timeline Section */}
             {store.timeline && (
-              <div className="bg-white rounded-xl shadow-sm border border-gray-200 px-4 py-6 xl:py-8">
-                <h2 className="text-lg xl:text-xl font-bold text-gray-900 mb-6">Important Timelines</h2>
-                <div className="grid grid-cols-2 gap-6 p-1">
+              <div className="bg-white rounded-xl shadow-sm border border-gray-200 px-4 py-4 xl:py-8">
+                <h2 className="text-sm xl:text-xl font-bold text-gray-900 mb-6">Important Timelines</h2>
+                <div className="grid grid-cols-2 gap-5 p-1">
                   {store.timeline.map((item, index) => (
-                    <div key={index} className="bg-gray-100 rounded-xl py-2 md:py-3 text-center relative">
-                      <h3 className="text-gray-800 text-sm md:text-base font-semibold mb-2">{item.title}</h3>
-                      <div className="text-2xl md:text-4xl font-semibold text-gray-700 mb-2">{item.value}</div>
-                      <div className="text-gray-800 font-semibold text-sm md:text-base">{item.unit}</div>
+                    <div key={index} className="bg-gray-100 rounded-xl px-1 py-2 md:py-3 text-center relative">
+                      <h3 className="text-gray-800 text-xs md:text-base font-semibold mb-2">{item.title}</h3>
+                      <div className="text-xl md:text-4xl font-semibold text-gray-700 mb-2">{item.value}</div>
+                      <div className="text-gray-800 font-semibold text-xs md:text-base">{item.unit}</div>
                       {index < store.timeline.length - 1 && (
                         <div className="hidden md:block absolute -right-3 top-1/2 transform -translate-y-1/2">
                           <div className="w-6 h-6 bg-gray-100 rounded-full flex items-center justify-center">
@@ -201,8 +201,8 @@ export default function StorePage() {
 
             {/* How it Works - Mobile */}
             <div className="md:hidden bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-              <h3 className="text-lg font-bold text-gray-900 mb-4">How it Works</h3>
-              <div className="space-y-4 text-sm text-gray-600">
+              <h3 className="text-sm font-bold text-gray-900 mb-4">How it Works</h3>
+              <div className="space-y-4 text-xs text-gray-600">
                 {[
                   `Click on "Earn Cashback" button to visit ${store.name}`,
                   `Complete your purchase on ${store.name} website or app`,
@@ -222,7 +222,7 @@ export default function StorePage() {
             {/* Terms Section */}
             {store.terms && (
               <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
-                <h3 className="text-lg xl:text-xl font-bold text-gray-900 mb-6">Terms & Conditions</h3>
+                <h3 className="text-sm xl:text-xl font-bold text-gray-900 mb-6">Terms & Conditions</h3>
                 <div className="space-y-4">
                   {store.terms.conditions.map((term, index) => (
                     <div key={index} className="flex gap-3">
@@ -233,7 +233,7 @@ export default function StorePage() {
                 </div>
                 <button
                   onClick={() => setShowTerms(true)}
-                  className="mt-8 inline-flex text-md font-semibold cursor-pointer text-[#0036DA] hover:text-gray-700"
+                  className="mt-8 inline-flex text-xs md:text-base font-semibold cursor-pointer text-[#0036DA] hover:text-gray-700"
                 >
                   View All Terms & Conditions →
                 </button>
@@ -252,7 +252,7 @@ export default function StorePage() {
           {store.terms?.cashbackSlabs?.length > 0 ? (
             store.terms.cashbackSlabs.map((slab, i) => (
               <div key={i} className="flex gap-3">
-                <div className="text-[#00A63E] font-bold text-lg mt-1 min-w-[60px]">
+                <div className="text-[#00A63E] font-semibold text-sm md:text-lg mt-1 min-w-[60px]">
                   {slab.rate}
                 </div>
                 <div className="flex-1">
@@ -265,7 +265,7 @@ export default function StorePage() {
               </div>
             ))
           ) : (
-            <div className="flex gap-3">
+            <div className="flex gap-2">
               <div className="text-[#00A63E] font-bold text-lg mt-1 min-w-[60px]">
                 {store.terms?.rate || 'N/A'}
               </div>
@@ -296,26 +296,26 @@ export default function StorePage() {
       </Modal>
       
       {/* Fixed Bottom Section for Mobile */}
-      <div className="fixed bottom-19 left-2 right-2 bg-white border border-gray-200 rounded-xl md:hidden z-50 shadow-lg">
-        <div className="bg-gray-50 rounded-xl p-4">
-          <div className="flex pb-8 items-center justify-between">
+      <div className="fixed bottom-19 left-2 right-2 bg-gray-100 border border-gray-300 rounded-xl md:hidden z-10 shadow-lg">
+        <div className="bg-gray-200 rounded-xl py-2 px-4">
+          <div className="flex pb-6 items-center justify-between">
             <Image src={store.logo} height="40" width="90" alt={store.name} className="object-contain max-h-[40px] max-w-[90px]" />
             {store.badge && (
-              <span className="px-2 py-1 bg-red-500 text-white text-xs font-bold rounded-lg">
+              <span className="px-2 py-1 bg-red-500 text-white text-[9px] font-bold rounded-lg">
                 {store.badge}
               </span>
             )}
           </div>
           
-          <div className="text-center mb-4 text-gray-800 space-x-1 text-xl">
-            {store.qty && <span className="font-bold">{store.qty}</span>}
-            <span className="text-[#00A63E] text-3xl font-bold">{store.cashback}</span>
-            <span className="font-bold">{store.type}</span>
+          <div className="text-center mb-3 text-gray-800 space-x-1 text-lg">
+            {store.qty && <span className="font-semibold">{store.qty}</span>}
+            <span className="text-[#00A63E] text-2xl font-bold">{store.cashback}</span>
+            <span className="font-semibold">{store.type}</span>
           </div>
           
           <Link
             href="#"
-            className="w-full bg-gray-900 text-white py-2 px-2 rounded-lg font-semibold hover:bg-gray-700 transition-colors inline-block text-center text-sm"
+            className="w-full bg-gray-900 text-white py-3 px-2 rounded-lg font-semibold hover:bg-gray-700 transition-colors inline-block text-center text-xs"
           >
             Earn {store.type} on {store.name} →
           </Link>

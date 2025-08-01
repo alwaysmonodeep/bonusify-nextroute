@@ -8,8 +8,7 @@ const FlashDealSection = ({ deals,isMobile, responsive }) => {
   const DealCard = ({ deal }) => (
     <div
       key={deal.id}
-      className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-200 hover:scale-96 flex-shrink-0 w-60 sm:w-72 lg:w-70 cursor-pointer flex flex-col h-full"
-    >
+      className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-200 hover:scale-96 flex-shrink-0 w-55 sm:w-72 lg:w-70 cursor-pointer flex flex-col h-80 md:h-full">
       <div className="flex items-center justify-between p-2 sm:p-3 h-12">
         <div className="flex items-center space-x-2">
           <Image
@@ -81,12 +80,12 @@ const FlashDealSection = ({ deals,isMobile, responsive }) => {
   <div className="absolute inset-0 bg-white/10 pointer-events-none" />
   <div className="relative z-10 max-w-6xl mx-auto">
         <div className="text-center mb-6 sm:mb-8">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-2 sm:mb-3 drop-shadow-lg">
+          <h1 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-white mb-2 sm:mb-3 drop-shadow-lg">
             FLASH DEAL
           </h1>
-          <div className="inline-flex items-center bg-white/90 backdrop-blur-sm rounded-full px-4 sm:px-6 py-2 sm:py-3 shadow-lg gap-2">
-            <FiClock className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" />
-            <span className="text-gray-800 font-medium text-sm sm:text-base">
+          <div className="inline-flex items-center bg-white/90 backdrop-blur-sm rounded-full px-3 sm:px-6 py-1 sm:py-3 shadow-lg gap-2">
+            <FiClock className="text-lg text-gray-600" />
+            <span className="text-gray-800 font-medium text-xs sm:text-base">
               Ends Soon
             </span>
           </div>

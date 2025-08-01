@@ -1,7 +1,12 @@
 import React from 'react';
 import Image from 'next/image';
 
-const Loanandcardcomp = ({ items, type }) => {
+const Loanandcardcomp = ({ items = [], type }) => {
+  // Early return if items is not available or empty
+  if (!items || items.length === 0) {
+    return <div>No items available</div>;
+  }
+
   // Credit Card Component
   const CreditCardIcon = ({ item }) => (
     <div className="w-14 h-9 xs:w-16 xs:h-10 sm:w-18 sm:h-11 md:w-20 md:h-12 lg:w-22 lg:h-13 xl:w-24 xl:h-14 bg-gray-800 rounded-sm sm:rounded-md relative overflow-hidden flex-shrink-0">
@@ -49,7 +54,7 @@ const Loanandcardcomp = ({ items, type }) => {
   <>
     {items.map((item, i) => (
       <a href="#" key={i} className="block">
-        <div className="relative bg-[#699CEC] overflow-hidden rounded-lg cursor-pointer transition-transform duration-150 hover:scale-[0.98] min-h-[170px] md:min-h-[180px] xl:min-h-[190px]">
+        <div className="relative bg-[#699CEC] overflow-hidden rounded-lg cursor-pointer transition-transform duration-150 hover:scale-[0.98] h-[240px] md:h-[270px] xl:h-[290px]">
           <div className="relative p-3 sm:p-4 md:p-5 lg:p-4 h-full flex flex-col justify-between">
             {/* Top Section */}
             <div className="flex justify-between items-start">
@@ -86,7 +91,7 @@ const Loanandcardcomp = ({ items, type }) => {
                     BI
                   </span>
                 </div>
-                <span className="text-white font-semibold text-base xl:text-lg">
+                <span className="text-white font-semibold text-sm md:text-lg">
                   Flat {item.reward} Rewards
                 </span>
               </div>

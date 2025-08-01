@@ -85,10 +85,10 @@ const FAQPage = () => {
             <div className="w-5 h-5 bg-gray-400 rounded-full flex items-center justify-center">
               <FaQuestionCircle className="w-3 h-3 text-white" />
             </div>
-            <span className="text-sm font-medium text-gray-700">FAQs</span>
+            <span className="text-xs md:text-sm font-medium text-gray-700">FAQs</span>
           </div>
         </div>
-        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+        <h2 className="text-xl md:text-3xl font-bold text-gray-900 mb-4">
           Frequently asked questions
         </h2>
          <p className="text-xs md:text-base text-gray-600">
@@ -97,20 +97,20 @@ const FAQPage = () => {
       </div>
 
       {/* FAQ Content */}
-      <div className="max-w-6xl pt-4 mx-auto">
+      <div className="max-w-6xl pt-2 mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           {faqData.map((item) => (
             <div key={item.id} className="space-y-6">
               {/* Icon and Question */}
               <div className="flex items-start space-x-6">
-                <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center flex-shrink-0">
                   {item.icon}
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                  <h3 className="text-sm md:text-xl font-semibold text-gray-900 mb-2">
                     {item.question}
                   </h3>
-                  <p className="text-gray-600 leading-relaxed">
+                  <p className="text-gray-600 text-xs md:text-base leading-relaxed">
                     {item.answer}
                   </p>
                 </div>

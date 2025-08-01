@@ -129,16 +129,16 @@ const Terms = () => {
       </Head>
       
       <div className="max-w-6xl mx-auto p-6">
-        <h1 className="text-2xl font-bold mb-2">Terms and Conditions</h1>
+        <h1 className="text-xl md:text-2xl font-bold mb-2">Terms and Conditions</h1>
         
         {termsData.map((section) => (
           <div key={section.id} className="mb-8">
-            <h2 className="text-xl font-semibold mb-4">{section.title}</h2>
+            <h2 className="text-lg md:text-xl font-semibold mb-4">{section.title}</h2>
             
             {section.content && (
               <div className="mb-4">
                 {section.content.map((paragraph, idx) => (
-                  <p key={idx} className="mb-2">{paragraph}</p>
+                  <p key={idx} className="mb-2 text-sm">{paragraph}</p>
                 ))}
               </div>
             )}

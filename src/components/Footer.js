@@ -30,33 +30,33 @@ function Footer() {
       </div>
       
       {/* Purple Footer Section */}
-      <div className="bg-[#332B4E] text-white px-4 sm:px-6 py-6">
+      <div className="bg-[#332B4E] text-white px-4 sm:px-6 py-4 md:py-5">
         <div className=" max-w-7xl mx-auto">
           {/* Single Responsive Grid Layout */}
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
             {/* Logo & Social/Apps (Previously Contact Us) */}
-            <div className="flex-1  text-left">
-              <Image
-                src={"/bonusifywhite.png"}
-                width={180}
-                height={35}
+            <div className="flex-1 text-left">
+              <Image 
+                src="/bonusifywhite.png" 
+                width={170}
+                height={40} 
                 alt="Logo"
-                className="mb-4"
-              />
-              <h3 className="font-semibold mb-3 text-base">Follow Us On</h3>
-              <div className="flex gap-3 mb-4">
+                className="md:w-[170px] w-[100px]"/>
+
+              <h3 className="font-semibold my-5 text-sm">Follow Us On</h3>
+              <div className="flex gap-3 mb-2">
                 <a href="/" target="_blank" rel="noopener noreferrer" className="hover:text-gray-300 transition-colors">
-                  <FaFacebookF className="text-xl" />
+                  <FaFacebookF className="text-lg md:text-xl" />
                 </a>
                 <a href="/" target="_blank" rel="noopener noreferrer" className="hover:text-gray-300 transition-colors">
-                  <FaInstagram className="text-xl" />
+                  <FaInstagram className="text-lg md:text-xl" />
                 </a>
                 <a href="/" target="_blank" rel="noopener noreferrer" className="hover:text-gray-300 transition-colors">
-                  <FaXTwitter className="text-xl" />
+                  <FaXTwitter className="text-lg md:text-xl" />
                 </a>
                 
                 <a href="/" target="_blank" rel="noopener noreferrer" className="hover:text-gray-300 transition-colors">
-                  <FaTelegramPlane className="text-xl" />
+                  <FaTelegramPlane className="text-lg md:text-xl" />
                 </a>
               </div>
               
@@ -65,18 +65,18 @@ function Footer() {
 
             {/* About */}
             <div className="text-left">
-              <h3 className="font-semibold mb-3 mt-18 md:mt-0 text-base">About</h3>
-              <ul className="space-y-1 text-sm">
-                <li><Link href={"/about-us"} className="hover:text-gray-300 transition-colors">About Us</Link></li>
-                <li><Link href={"/privacy-policy"} className="hover:text-gray-300 transition-colors">Privacy Policy</Link></li>
-                <li><Link href={"/terms"} className="hover:text-gray-300 transition-colors">Terms and Conditions</Link></li>
+              <h3 className="font-semibold mb-3 mt-18 md:mt-0 text-sm md:text-lg">About</h3>
+              <ul className="space-y-1 text-xs md:text-sm font-light">
+                <li><Link href={"/about-us"} className=" text-gray-100 transition-colors">About Us</Link></li>
+                <li><Link href={"/privacy-policy"} className="text-gray-100 transition-colors">Privacy Policy</Link></li>
+                <li><Link href={"/terms"} className="text-gray-100 transition-colors">Terms and Conditions</Link></li>
               </ul>
             </div>
 
             {/* Useful Links */}
             <div className="text-left">
-              <h3 className="font-semibold mb-3 text-base">Useful Links</h3>
-              <ul className="space-y-1 text-sm">
+              <h3 className="font-semibold mb-3 text-sm md:text-lg">Useful Links</h3>
+              <ul className="space-y-1 font-light text-xs md:text-sm">
                 <li><Link href={"/"} className="hover:text-gray-300 transition-colors">Become our Partner</Link></li>
                 <li><Link href={"/refer-and-earn"} className="hover:text-gray-300 transition-colors">Refer &amp; Earn</Link></li>
               </ul>
@@ -84,27 +84,27 @@ function Footer() {
 
             {/* Contact Us (Previously Social & Apps) */}
             <div className="text-left">
-              <h3 className="font-semibold mb-3 text-base">Contact Us</h3>
-              <div className="space-y-2 text-sm">
+              <h3 className="font-semibold mb-3 text-sm md:text-lg">Contact Us</h3>
+              <div className="space-y-2 font-light text-xs md:text-sm">
                 <div className="flex items-center gap-2">
                   <MdEmail className="text-lg" />
                   <span>care@bonusify.in</span>
                 </div>
-                <h3 className="font-semibold mb-3 text-base">Coming Soon</h3>
-              <div className="flex flex-wrap cursor-pointer gap-3">
+                <h3 className="font-semibold mb-3 text-xs md:text-lg">Coming Soon</h3>
+              <div className="flex flex-wrap cursor-pointer gap-1 md:gap-2">
                 <Image
                   src="/apple.png"
                   alt="App Store"
                   width={90}
                   height={28}
-                  className="hover:opacity-80 transition-opacity"
+                  className="md:w-[90px] w-[70px]"
                 />
                 <Image
                   src="/google.png"
                   alt="Google Play"
                   width={90}
                   height={28}
-                  className="hover:opacity-80 transition-opacity"
+                  className="md:w-[90px] w-[70px]"
                 />
               </div>
               </div>

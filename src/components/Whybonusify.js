@@ -46,7 +46,7 @@ function WhyBonusify() {
       <div className="max-w-6xl mx-auto">
         {/* Header Section */}
         <div className="text-center mb-10">
-          <h2 className="text-2xl md:text-3xl font-semibold text-gray-600 mb-2">
+          <h2 className="text-xl md:text-2xl font-semibold text-gray-600 mb-2">
             Why Choose <span className="text-[#332B4E]">Bonusify</span>?
           </h2>
         </div>

@@ -99,7 +99,7 @@ export default function MyAccountSection() {
   };
 
   return (
-    <div className="min-h-screen bg-white py-8 px-4">
+    <div className="min-h-screen bg-white py-6 px-4">
       <div className="max-w-4xl mx-auto">
         {/* Main Content */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -108,16 +108,16 @@ export default function MyAccountSection() {
             <div className="flex items-start space-x-4">
               {/* Profile Avatar */}
               <div className="w-16 h-16  rounded-full flex items-center justify-center flex-shrink-0">
-                <FaUser className="w-8 h-8 text-gray-900" />
+                <FaUser className="text-2xl md:text-4xl text-gray-900" />
               </div>
 
               {/* Profile Details */}
               <div className="flex-1 min-w-0">
                 <div className="mb-4">
-                  <h4 className="text-xl font-semibold text-gray-900 mb-1">
+                  <h4 className="text-lg md:text-xl font-semibold text-gray-900 mb-1">
                     {user.fname} {user.lname}
                   </h4>
-                  <p className="text-sm text-gray-500">Account Holder</p>
+                  <p className="text-xs md:text-sm text-gray-500">Account Holder</p>
                 </div>
 
                 <div className="space-y-3">
@@ -126,7 +126,7 @@ export default function MyAccountSection() {
                       <MdNumbers className="w-4 h-4 text-gray-600" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-gray-900">
+                      <p className="text-sm md:text-lg font-medium text-gray-900">
                         {user.CID}
                       </p>
                       <p className="text-xs text-gray-500">Client Number</p>
@@ -137,7 +137,7 @@ export default function MyAccountSection() {
                       <MdMail className="w-4 h-4 text-gray-600" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-gray-900">
+                      <p className="text-sm md:text-lg font-medium text-gray-900">
                         {user.email}
                       </p>
                       <p className="text-xs text-gray-500">Email Address</p>
@@ -149,7 +149,7 @@ export default function MyAccountSection() {
                       <FaPhoneAlt className="w-4 h-4 text-gray-600" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-gray-900">
+                      <p className="text-sm md:text-lg font-medium text-gray-900">
                         {user.mobile}
                       </p>
                       <p className="text-xs text-gray-500">Mobile Number</p>
@@ -181,7 +181,7 @@ export default function MyAccountSection() {
             <nav className="flex space-x-8">
               <button
                 onClick={() => setActiveTab("personal")}
-                className={`py-2 px-1 border-b-2 font-medium text-md ${
+                className={`py-2 px-1 border-b-2 font-medium text-sm md:text-md ${
                   activeTab === "personal"
                     ? "border-gray-900 text-gray-900"
                     : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
@@ -191,7 +191,7 @@ export default function MyAccountSection() {
               </button>
               <button
                 onClick={() => setActiveTab("password")}
-                className={`py-2 px-1 border-b-2 font-medium text-md ${
+                className={`py-2 px-1 border-b-2 font-medium text-sm md:text-md ${
                   activeTab === "password"
                     ? "border-gray-900 text-gray-900"
                     : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
@@ -207,7 +207,7 @@ export default function MyAccountSection() {
             <div className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-xs md:text-sm font-medium text-gray-700 mb-2">
                     First Name
                   </label>
                   <input
@@ -226,7 +226,7 @@ export default function MyAccountSection() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-xs md:text-sm font-medium text-gray-700 mb-2">
                     Last Name
                   </label>
                   <input
@@ -245,7 +245,7 @@ export default function MyAccountSection() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-xs md:text-sm font-medium text-gray-700 mb-2">
                     Email Address
                   </label>
                   <input
@@ -264,7 +264,7 @@ export default function MyAccountSection() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-xs md:text-sm font-medium text-gray-700 mb-2">
                     Mobile Number
                   </label>
                   <input
@@ -293,7 +293,7 @@ export default function MyAccountSection() {
               <button
                 onClick={handlePersonalDetailsUpdate}
                 disabled={isUpdatingPersonal || !hasPersonalChanges()}
-                className="bg-gray-900 text-white py-2 px-6 rounded-lg hover:bg-gray-600 disabled:bg-gray-500 disabled:cursor-not-allowed transition-colors font-medium"
+                className="bg-gray-900 text-white py-2 px-4 rounded-lg hover:bg-gray-600 disabled:bg-gray-500 disabled:cursor-not-allowed transition-colors text-sm md:text-base font-medium"
               >
                 {isUpdatingPersonal ? "Updating..." : "Update Personal Details"}
               </button>
@@ -304,7 +304,7 @@ export default function MyAccountSection() {
             <div className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-xs md:text-sm font-medium text-gray-700 mb-2">
                     Current Password
                   </label>
                   <div className="relative">
@@ -330,13 +330,13 @@ export default function MyAccountSection() {
                       )}
                     </button>
                   </div>
-                  <p className="text-sm text-blue-600 hover:text-blue-500 hover:underline cursor-pointer pt-2 pl-1">
+                  <p className="text-xs md:text-sm text-blue-600 hover:text-blue-500 hover:underline cursor-pointer pt-2 pl-1">
                     Forget password?
                   </p>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-xs md:text-sm font-medium text-gray-700 mb-2">
                     New Password
                   </label>
                   <div className="relative">
@@ -363,7 +363,7 @@ export default function MyAccountSection() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-xs md:text-sm font-medium text-gray-700 mb-2">
                     Confirm New Password
                   </label>
                   <div className="relative">
@@ -425,16 +425,16 @@ export default function MyAccountSection() {
         <div className="mt-8 bg-white rounded-xl shadow-sm border border-gray-200 p-6">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="text-lg font-semibold text-gray-900">
+              <h3 className="text-sm md:text-lg font-semibold text-gray-900">
                 Account Actions
               </h3>
-              <p className="text-gray-600 text-sm">
+              <p className="text-gray-600 text-xs md:text-sm">
                 Manage your session and account access
               </p>
             </div>
             <button
               onClick={handleLogout}
-              className="flex items-center bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition-colors font-medium"
+              className="flex items-center bg-red-600 text-sm md:text-base text-white py-2 px-3 rounded-lg hover:bg-red-700 transition-colors font-medium"
             >
               <FaSignOutAlt className="w-4 h-4 mr-2" />
               Logout

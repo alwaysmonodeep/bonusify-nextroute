@@ -22,10 +22,10 @@ const OrderPage = () => (
         <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-200/20 to-purple-200/20 rounded-full -translate-y-16 translate-x-16"></div>
         <div className="text-black px-4 sm:px-6 lg:px-8 py-4 sm:py-6 flex flex-row flex-wrap items-center justify-between gap-2 sm:gap-4">
           <div className="flex-1 min-w-0">
-            <h2 className="text-lg sm:text-xl font-semibold mb-0 sm:mb-2">Order History</h2>
+            <h2 className="text-sm sm:text-xl font-semibold mb-0 sm:mb-2">Order History</h2>
             <p className="text-xs sm:text-sm text-black">Orders are updated within 72 hours</p>
           </div>
-          <select className="flex-shrink-0 w-36 sm:w-auto border rounded-md px-3 sm:px-4 py-2 bg-white outline-0 text-black border-gray-300 text-sm sm:text-base">
+          <select className="flex-shrink-0 w-34 sm:w-auto border rounded-md px-3 sm:px-4 py-2 bg-white outline-0 text-black border-gray-300 text-sm sm:text-base">
             <option>March 2025</option>
             <option>February 2025</option>
             <option>January 2025</option>
@@ -45,7 +45,7 @@ const OrderPage = () => (
           {orders.length === 0 ? (
             <div className="px-4 sm:px-6 lg:px-8 py-12 text-center">
               <MdHelpOutline className="mx-auto w-12 h-12 text-gray-400 mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">No orders to show</h3>
+              <h3 className="text-MD font-medium text-gray-900 mb-2">No orders to show</h3>
               <p className="text-gray-500">Your order history will appear here once you make your first purchase.</p>
             </div>
           ) : (

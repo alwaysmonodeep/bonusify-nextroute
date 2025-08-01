@@ -175,7 +175,7 @@ const CREDIT_CARDS = [
       bank: "HDFC Bank",
       cardType: "Pixel Play",
       reward: "₹750",
-      features: ["Online Shopping Rewards", "Fuel Surcharge Waiver"],
+      features: ["Shopping Rewards", "Fuel Surcharge Waiver"],
     },
     {
       name: "Axis Bank Flipkart Card",
@@ -296,7 +296,7 @@ const scrollCategories = (direction) => {
           {SLIDES.map((slide, idx) => (
             <div className="mx-2" key={idx}>
               <a href={slide.link} target="_blank" rel="noopener noreferrer">
-                <div className="w-full h-60 flex items-center justify-center bg-white rounded-2xl overflow-hidden">
+                <div className="w-full h-50 md:h-60 flex items-center justify-center bg-white rounded-2xl overflow-hidden">
                   <Image
                     width={800}
                     height={240}
@@ -314,7 +314,7 @@ const scrollCategories = (direction) => {
 
  {/* Categories Section */}
 {/* Categories Section */}
-<section className="xl:ml-7 ml-2 py-6 relative">
+<section className="xl:ml-7 ml-2 pt-6 pb-3 md:py-6 relative">
   <h2 className="text-base md:ml-2 md:text-xl xl:text-2xl ml-1 font-semibold mb-4">
     Browse By Category
   </h2>
@@ -348,7 +348,7 @@ const scrollCategories = (direction) => {
         const IconComponent = category.icon;
         return (
           <div key={idx} className="flex flex-col items-center w-[100px] min-w-[100px] max-w-[100px] cursor-pointer hover:text-[#332B4E] transition outline-1 outline-gray-300 rounded-full p-1 hover:bg-gray-100">
-            <IconComponent size={30} className="text-lg mb-1 text-gray-700" />
+            <IconComponent size={25} className="text-lg mb-1 text-gray-700" />
             <span className="text-[11px] text-center truncate w-full">
               {category.name}
             </span>
@@ -371,7 +371,7 @@ const scrollCategories = (direction) => {
       {/* Popular Store Section */}
       <section className="xl:ml-7 ml-2 py-8">
         <SectionHeader title="Popular Stores" href="/stores" />
-        <div className="sm:px-2 grid grid-flow-col auto-cols-[42vw] gap-2 overflow-x-auto md:grid-cols-3 md:grid-flow-row md:auto-cols-auto md:overflow-x-visible lg:grid-cols-4 xl:grid-cols-6 scrollbar-hide">
+        <div className="sm:px-2 grid grid-flow-col auto-cols-[45vw] gap-2 overflow-x-auto md:grid-cols-3 md:grid-flow-row md:auto-cols-auto md:overflow-x-visible lg:grid-cols-4 xl:grid-cols-6 scrollbar-hide">
           <StoresComp />
         </div>
       </section>
@@ -384,8 +384,8 @@ const scrollCategories = (direction) => {
     {/* Credit Cards */}     
     <div className="flex flex-col xl:flex-row min-w-[300px] sm:min-w-[340px] lg:min-w-0 lg:w-full bg-[#f5f8ff] p-2 rounded-2xl gap-3 flex-shrink-0 lg:flex-shrink">       
       <div className="flex gap-3 xl:gap-0 xl:flex-col items-center justify-center bg-gray-100 bg-opacity-40 rounded-xl px-3 py-2 text-center shadow-sm lg:min-w-fit">         
-        <FaCreditCard className="text-4xl mb-2" />         
-        <p className="text-base font-semibold text-center pb-2">Credit Cards</p>       
+        <FaCreditCard className="text-3xl mb-2" />         
+        <p className="text-sm md:text-base font-semibold text-center pb-2">Credit Cards</p>       
       </div>       
       <div className="grid grid-cols-2 gap-5 w-full">         
         <Loanandcardcomp items={CREDIT_CARDS} type="creditCard" />       
@@ -395,8 +395,8 @@ const scrollCategories = (direction) => {
     {/* Bank Loans */}     
     <div className="flex flex-col xl:flex-row min-w-[300px] sm:min-w-[340px] lg:min-w-0 lg:w-full bg-[#f5f8ff] p-2 rounded-2xl gap-2 flex-shrink-0 lg:flex-shrink">       
       <div className="flex gap-3 xl:gap-0 xl:flex-col items-center justify-center bg-gray-100 bg-opacity-40 rounded-xl px-3 py-2 text-center shadow-sm lg:min-w-fit">         
-        <FaMoneyBill className="text-4xl mb-2"/>         
-        <p className="text-base font-semibold text-center pb-2">Bank Loans</p>       
+        <FaMoneyBill className="text-3xl mb-2"/>         
+        <p className="text-sm md:text-base font-semibold text-center pb-2">Bank Loans</p>       
       </div>       
       <div className="grid grid-cols-2 gap-5 w-full">         
         <Loanandcardcomp items={CREDIT_CARDS} type="loan" />       

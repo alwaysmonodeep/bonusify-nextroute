@@ -89,7 +89,13 @@ function Nav({ sidebarOpen, setSidebarOpen }) {
             onClick={toggleSidebar}
           />
           <Link href="/">
-            <Image src="/bonusifygreen.png" width={110} height={40} alt="Logo" />
+        <Image 
+  src="/bonusifygreen.png" 
+  width={90}
+  height={40} 
+  alt="Logo"
+  className="md:w-[110px] w-[90px]"
+/>
           </Link>
         </div>
 
@@ -115,32 +121,32 @@ function Nav({ sidebarOpen, setSidebarOpen }) {
               </div>
             </Link>
             <div className="md:hidden">
-              <CiSearch className="text-2xl text-gray-900 cursor-pointer" />
+              <CiSearch className="text-xl text-gray-900 cursor-pointer" />
             </div>
           </div>
 
           {/* Notifications */}
           <div className="flex cursor-pointer items-center pr-8" onClick={toggleNotifications}>
             <div className="relative" ref={notificationRef}>
-              <MdNotifications className="text-2xl text-[#332B4E] hover:text-gray-600"/>
+              <MdNotifications className="text-xl md:text-2xl text-[#332B4E] hover:text-gray-600"/>
               {unreadCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
                   {unreadCount}
                 </span>
               )}
 
               {/* Notification Dropdown */}
               {showNotifications && (
-                <div className="absolute right-0 top-8 w-80 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+                <div className="absolute right-[-18px] top-6 w-70 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
                   <div className="flex items-center justify-between p-4 border-b border-gray-100">
-                    <h3 className="text-lg font-semibold text-gray-800">Notifications</h3>
+                    <h3 className="text-sm md:text-lg font-semibold text-gray-800">Notifications</h3>
                     <MdClose
                       className="text-xl text-gray-500 cursor-pointer hover:text-gray-700"
                       onClick={() => setShowNotifications(false)}
                     />
                   </div>
 
-                  <div className="max-h-96 overflow-y-auto">
+                  <div className="max-h-90 overflow-y-auto">
                     {notifications.length > 0 ? (
                       notifications.map((notification) => (
                         <div
@@ -152,8 +158,8 @@ function Nav({ sidebarOpen, setSidebarOpen }) {
                         >
                           <div className="flex justify-between items-start">
                             <div className="flex-1">
-                              <h4 className="text-sm font-medium text-gray-800 mb-1">{notification.title}</h4>
-                              <p className="text-sm text-gray-600 mb-2">{notification.message}</p>
+                              <h4 className="text-xs md:text-sm font-medium text-gray-800 mb-1">{notification.title}</h4>
+                              <p className="text-xs md:text-sm text-gray-600 mb-2">{notification.message}</p>
                               <p className="text-xs text-gray-400">{notification.time}</p>
                             </div>
                             {!notification.read && <span className="w-2 h-2 bg-blue-500 rounded-full mt-1 ml-2" />}
@@ -162,8 +168,8 @@ function Nav({ sidebarOpen, setSidebarOpen }) {
                       ))
                     ) : (
                       <div className="p-8 text-center text-gray-500">
-                        <MdNotifications className="text-4xl mx-auto mb-2 text-gray-300" />
-                        <p>No notifications yet</p>
+                        <MdNotifications className="text-2xl mx-auto mb-2 text-gray-300" />
+                        <p className="text-xs md:text-sm">No notifications yet</p>
                       </div>
                     )}
                   </div>
@@ -240,8 +246,8 @@ function Nav({ sidebarOpen, setSidebarOpen }) {
               href={href}
               className="flex flex-col items-center py-2 px-3 min-w-0 flex-1"
             >
-              <Icon className="text-2xl text-[#332B4E] hover:text-[#4E897D]" />
-              <span className="text-xs text-center truncate w-full text-[#332B4E]">{label}</span>
+              <Icon className="text-xl text-[#332B4E] hover:text-[#4E897D]" />
+              <span className="text-xs md:text-base text-center truncate w-full text-[#332B4E]">{label}</span>
             </Link>
           ))}
         </div>

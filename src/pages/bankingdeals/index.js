@@ -11,7 +11,7 @@ import React, { useState } from "react";
       reward: "₹1,400",
       features: [
         "10X Reward Point",
-        "Savings on online Spends",
+        "Savings on online spends",
         "Fuel Surcharge Waiver",
       ],
     },
@@ -29,7 +29,7 @@ import React, { useState } from "react";
       bank: "HDFC Bank",
       cardType: "Pixel Play",
       reward: "₹750",
-      features: ["Online Shopping Rewards", "Fuel Surcharge Waiver"],
+      features: ["Shopping Rewards", "Fuel Surcharge Waiver"],
     },
     {
       name: "Axis Bank Flipkart Card",
@@ -48,8 +48,8 @@ function Bankingdeals() {
     console.log(`Filtering by: ${filter}`);
   };
   return (
-    <div className="min-h-screen w-full mx-auto px-2 py-4 md:px-10">
-      <h2 className="text-2xl font-bold text-gray-800 text-center mb-8">
+    <div className="min-h-screen w-full mx-auto px-2 py-2 xl:px-8">
+      <h2 className="text-xl font-bold text-gray-800 text-center mb-8">
         Loan & Card Deals
       </h2>
       {/* Filter Tabs */}
@@ -58,7 +58,7 @@ function Bankingdeals() {
           <button
             key={filter}
             onClick={() => handleFilterChange(filter)}
-            className={`px-3 py-1.5 cursor-pointer sm:px-6 sm:py-2 text-sm sm:text-base rounded-lg font-medium transition-all duration-200 ${
+            className={`px-3 py-1.5 cursor-pointer sm:px-6 sm:py-2 text-xs sm:text-base rounded-lg font-medium transition-all duration-200 ${
               activeFilter === filter
                 ? "bg-[#332B4E] text-white shadow-lg"
                 : "bg-white text-gray-600 border border-gray-200 hover:bg-gray-50 hover:border-gray-300"
@@ -69,7 +69,7 @@ function Bankingdeals() {
         ))}
       </div>
     
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-5">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-5">
           <Loanandcardcomp items={creditCards} type="creditCard" />
         </div>
 
