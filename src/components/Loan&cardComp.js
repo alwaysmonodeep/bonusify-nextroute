@@ -54,7 +54,7 @@ const Loanandcardcomp = ({ items = [], type }) => {
   <>
     {items.map((item, i) => (
       <a href="#" key={i} className="block">
-        <div className="relative bg-[#699CEC] overflow-hidden rounded-lg cursor-pointer transition-transform duration-150 hover:scale-[0.98] h-[240px] md:h-[270px] xl:h-[290px]">
+        <div className="relative bg-[#699CEC] overflow-hidden rounded-lg cursor-pointer transition-transform duration-150 hover:scale-[0.98] h-[240px] md:h-[290px] xl:h-[320px]">
           <div className="relative p-3 sm:p-4 md:p-5 lg:p-4 h-full flex flex-col justify-between">
             {/* Top Section */}
             <div className="flex justify-between items-start">

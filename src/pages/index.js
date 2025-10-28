@@ -18,7 +18,7 @@ const FourStepCahback = dynamic(() => import("@/components/FourStepCahback"), {
 });
 const StoresComp = dynamic(() => import("@/components/StoresComp"), {
   loading: () => <div className="animate-pulse bg-gray-200 h-24 rounded-lg"></div>,
-  ssr: false,
+  ssr: true,
 });
 const WhyBonusify = dynamic(() => import("@/components/Whybonusify"), {
   loading: () => <div className="animate-pulse bg-gray-200 h-64 rounded-lg"></div>,
@@ -296,7 +296,7 @@ const scrollCategories = (direction) => {
           {SLIDES.map((slide, idx) => (
             <div className="mx-2" key={idx}>
               <a href={slide.link} target="_blank" rel="noopener noreferrer">
-                <div className="w-full h-50 md:h-60 flex items-center justify-center bg-white rounded-2xl overflow-hidden">
+                <div className="w-full h-50 md:h-55 flex items-center justify-center bg-white rounded-2xl overflow-hidden">
                   <Image
                     width={800}
                     height={240}
@@ -312,7 +312,6 @@ const scrollCategories = (direction) => {
         </Carousel>
       </section>
 
- {/* Categories Section */}
 {/* Categories Section */}
 <section className="xl:ml-7 ml-2 pt-6 pb-3 md:py-6 relative">
   <h2 className="text-base md:ml-2 md:text-xl xl:text-2xl ml-1 font-semibold mb-4">
@@ -369,15 +368,20 @@ const scrollCategories = (direction) => {
       </section>
 
       {/* Popular Store Section */}
-      <section className="xl:ml-7 ml-2 py-8">
+      <section className="xl:ml-7 ml-2 py-4 md:py-8">
         <SectionHeader title="Popular Stores" href="/stores" />
-        <div className="sm:px-2 grid grid-flow-col auto-cols-[45vw] gap-2 overflow-x-auto md:grid-cols-3 md:grid-flow-row md:auto-cols-auto md:overflow-x-visible lg:grid-cols-4 xl:grid-cols-6 scrollbar-hide">
-          <StoresComp />
-        </div>
+        <StoresComp 
+            filterType="popular"
+    limit={12}
+    enablePagination={false}
+    initialLimit={25}
+    gridClassName="grid-flow-col auto-cols-[45vw] overflow-x-auto md:grid-cols-3 md:grid-flow-row md:auto-cols-auto md:overflow-x-visible lg:grid-cols-4 xl:grid-cols-6 scrollbar-hide"
+            />
+  
       </section>
 
       {/* Loan & Credit Card Section */}
- <section className="xl:ml-7 ml-1.5 py-7 ">   
+ <section className="xl:ml-7 ml-1.5 py-4 md:py-7 ">   
   <SectionHeader title="Loan & Card Deals" href="/bankingdeals" />      
   
   <div className="flex gap-4 overflow-x-auto lg:overflow-x-visible">     

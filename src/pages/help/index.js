@@ -138,12 +138,41 @@ export default function HelpSection() {
         return <FiFileText className="w-4 h-4" />;
     }
   };
-
   return (
-    <div className="min-h-screen bg-white mx-2 md:mx-5 pb-10 pt-10 md:pt-20">
-      <Head>
-        <title>Bonusify Help Center</title>
+    <>
+       <Head>
+        <title>Bonusify Help Center | Customer Support, FAQ & Cashback Help</title>
+        <meta 
+          name="description" 
+          content="Get instant help with Bonusify's comprehensive support center. Find answers to cashback issues, payment problems, account questions, and more." 
+        />
+        <link rel="canonical" href="https://bonusify.in/help" />
+        
+        {/* Open Graph */}
+        <meta property="og:title" content="Bonusify Help Center - Customer Support & FAQ" />
+        <meta 
+          property="og:description" 
+          content="Get instant help with Bonusify's comprehensive support center. Find answers to cashback issues, payment problems, and account questions." 
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://bonusify.com/help" />
+        
+        {/* Structured Data */}
+        <script 
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": categories.map(category => ({
+      "@type": "Question",
+      "name": category.title,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": category.description
+      }
+    }))}) }}
+        />
       </Head>
+    <div className="min-h-screen bg-white mx-2 md:mx-5 pb-10 pt-10 md:pt-20">
       <div className="max-w-6xl mx-auto">
         {/* Main Heading */}
         <div className="text-center mb-8">
@@ -312,5 +341,6 @@ export default function HelpSection() {
         )}
       </div>
     </div>
+    </>
   );
 }

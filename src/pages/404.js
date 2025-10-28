@@ -1,7 +1,13 @@
+import Head from 'next/head'
 import Link from 'next/link'
-
 export default function NotFound() {
   return (
+    <>
+    <Head>
+  <title>Page Not Found | Bonusify</title>
+  <meta name="description" content="Sorry, this page doesn't exist. Find what you need on our site." />
+  <meta name="robots" content="noindex, follow" /> {/* Don't index, but follow links */}
+</Head>
     <div className="min-h-screen flex items-center justify-center p-8">
       <div className="flex flex-col lg:flex-row items-center gap-12 max-w-6xl">
         {/* Retro Computer */}
@@ -26,7 +32,7 @@ export default function NotFound() {
                 
                 {/* 404 Text on Screen */}
                 <div className="h-1/4 bg-gray-800 flex items-center justify-center">
-                  <div className="text-white font-mono text-2xl font-bold tracking-wider animate-pulse">
+                  <div className="text-white font-mono text-xl lg:text-2xl font-bold tracking-wider animate-pulse">
                     4 0 4
                   </div>
                 </div>
@@ -58,23 +64,21 @@ export default function NotFound() {
         
         {/* Text Content */}
         <div className="text-center lg:text-left max-w-md">
-          <h1 className="text-6xl lg:text-8xl font-black text-[#332B4E] mb-4">
+          <h1 className="text-5xl lg:text-8xl font-black text-[#332B4E] mb-4">
             Oops!
           </h1>
-          <p className="text-xl lg:text-2xl text-gray-500 mb-8 leading-relaxed">
+          <p className="text-base lg:text-xl text-gray-500 mb-8 leading-relaxed">
             We couldn't find the page you were looking for
           </p>
           
           <Link 
             href={'/'}
-            className="inline-flex items-center gap-3 bg-[#332B4E] hover:bg-gray-700 text-white font-semibold py-4 px-8 rounded-full transition-all duration-200 transform hover:scale-105 shadow-lg"
-          >
+            className="inline-flex items-center gap-3 bg-[#332B4E] hover:bg-gray-700 text-white font-semibold py-4 px-8 rounded-full transition-all duration-200 transform hover:scale-105 shadow-lg">
             <svg 
               className="w-5 h-5" 
               fill="none" 
               stroke="currentColor" 
-              viewBox="0 0 24 24"
-            >
+              viewBox="0 0 24 24">
               <path 
                 strokeLinecap="round" 
                 strokeLinejoin="round" 
@@ -93,5 +97,6 @@ export default function NotFound() {
       <div className="absolute bottom-40 left-20 w-3 h-3 bg-yellow-400 rounded-full opacity-50 animate-bounce" style={{animationDelay: '0.5s'}}></div>
       <div className="absolute bottom-20 right-40 w-5 h-5 bg-green-400 rounded-full opacity-30 animate-pulse" style={{animationDelay: '1s'}}></div>
     </div>
+    </>
   )
 }

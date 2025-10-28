@@ -33,7 +33,7 @@ function FourStepCahback() {
               key={idx}
               className="relative border border-gray-200 rounded-xl p-2 md:p-4 flex flex-col items-center text-center min-w-[45vw] md:w-1/3 md:min-w-0 max-w-xs flex-shrink-0 md:flex-shrink shadow-sm"
             >
-              <span className="absolute top-3 right-2 md:-top-3 md:right-4 bg-white border border-[#edeaff] text-[#00A63E] font-bold rounded-xl px-2 py-0.5 text-base md:text-lg shadow-md z-10">
+              <span className="absolute top-3 right-2 md:-top-3 md:right-4 bg-white border border-[#edeaff] text-[#00A63E] font-bold rounded-xl px-2 py-0.5 text-base md:text-lg shadow-md z-1">
                 {idx + 1}
               </span>
               <div className="w-8 h-8 md:w-14 md:h-14 rounded-full bg-[#eaf7f2] flex items-center justify-center mb-2 md:mb-3">
