@@ -1,17 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo, useCallback, memo } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 import { MdContentCopy } from "react-icons/md";
 import dynamic from "next/dynamic";
+
+// Lazy load with higher priority
 const FourStepCahback = dynamic(() => import("@/components/FourStepCahback"), {
   loading: () => <div className="animate-pulse bg-gray-200 h-32 rounded-lg"></div>,
   ssr: false,
 });
 
-// Simple Modal Component
-const Modal = ({ isOpen, onClose, title, children }) => {
+// Memoized Modal Component
+const Modal = memo(({ isOpen, onClose, title, children }) => {
   if (!isOpen) return null;
   
   return (
@@ -34,10 +36,12 @@ const Modal = ({ isOpen, onClose, title, children }) => {
       </div>
     </div>
   );
-};
+});
 
-// Offer Component
-const OfferItem = ({ offer, index, copiedCoupon, onCopy }) => (
+Modal.displayName = 'Modal';
+
+// Memoized Offer Component
+const OfferItem = memo(({ offer, index, copiedCoupon, onCopy }) => (
   <div key={index} className="rounded-xl p-1">
     <div className="flex gap-2 ">
       <div className="w-2 h-2 bg-gray-700 rounded-full mt-3 flex-shrink-0" />
@@ -56,7 +60,51 @@ const OfferItem = ({ offer, index, copiedCoupon, onCopy }) => (
       </div>
     )}
   </div>
-);
+));
+
+OfferItem.displayName = 'OfferItem';
+
+// Memoized Carousel Component
+const Carousel = memo(({ catalogue, brandName, currentSlide, setCurrentSlide }) => {
+  if (!catalogue?.length) return null;
+
+  return (
+    <div className="bg-white rounded-xl overflow-hidden">
+      <div className="relative">
+        <div 
+          className="flex transition-transform duration-500" 
+          style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+        >
+          {catalogue.map((item, i) => (
+            <img 
+              key={i} 
+              src={item.imageUrl} 
+              alt={item.altText || brandName} 
+              className="w-full h-[210px] sm:h-[290px] md:h-[390px] lg:h-[350px] xl:h-[390px] object-cover flex-shrink-0"
+              loading={i === 0 ? "eager" : "lazy"}
+              onError={(e) => e.target.src = '/images/placeholder.jpg'} 
+            />
+          ))}
+        </div>
+        {catalogue.length > 1 && (
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
+            {catalogue.map((_, i) => (
+              <button 
+                key={i} 
+                onClick={() => setCurrentSlide(i)} 
+                className={`w-2 h-2 rounded-full transition-colors ${
+                  i === currentSlide ? 'bg-white' : 'bg-white/50'
+                }`} 
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+});
+
+Carousel.displayName = 'Carousel';
 
 export default function StorePage({ store, hasError, errorCode }) {
   const [modals, setModals] = useState({
@@ -68,21 +116,20 @@ export default function StorePage({ store, hasError, errorCode }) {
   const [copiedCoupon, setCopiedCoupon] = useState(null);
   const router = useRouter();
 
-  // Helper functions
-  const getDisplayRate = () => {
+  // Memoized helper functions
+  const displayRate = useMemo(() => {
     if (!store?.deal) return '';
     return store.deal.maxRateType === "percentage" 
       ? `${store.deal.maxRateValue}%` 
       : store.deal.maxRateType === "fixed" 
         ? `₹${store.deal.maxRateValue}` 
         : "";
-  };
+  }, [store?.deal]);
 
-  const getRewardType = () => store?.deal?.type || 'Rewards';
+  const rewardType = useMemo(() => store?.deal?.type || 'Rewards', [store?.deal?.type]);
 
-  const getSeoData = () => {
-    const displayRate = getDisplayRate();
-    const rewardType = getRewardType();
+  const seoData = useMemo(() => {
+    if (!store) return null;
     const title = `${store.brandName} Cashback & Offers | ${store.deal?.qualifier} ${displayRate} ${rewardType} on ${store.brandName}`;
     const description = `Get ${store.deal.qualifier} ${displayRate} ${rewardType} on ${store.brandName}. Shop through bonusify and earn rewards on every purchase.`;
     
@@ -102,7 +149,7 @@ export default function StorePage({ store, hasError, errorCode }) {
         }
       }
     };
-  };
+  }, [store, displayRate, rewardType]);
 
   // Auto-slide for carousel
   useEffect(() => {
@@ -115,8 +162,8 @@ export default function StorePage({ store, hasError, errorCode }) {
     return () => clearInterval(interval);
   }, [store?.catalogue?.length]);
 
-  // Copy coupon function
-  const copyCoupon = async (code) => {
+  // Memoized copy function
+  const copyCoupon = useCallback(async (code) => {
     try {
       await navigator.clipboard.writeText(code);
       setCopiedCoupon(code);
@@ -124,12 +171,12 @@ export default function StorePage({ store, hasError, errorCode }) {
     } catch (err) {
       console.error('Copy failed:', err);
     }
-  };
+  }, []);
 
-  // Modal handlers
-  const toggleModal = (modalName, value) => {
+  // Memoized modal handlers
+  const toggleModal = useCallback((modalName, value) => {
     setModals(prev => ({ ...prev, [modalName]: value }));
-  };
+  }, []);
 
   // Loading state
   if (router.isFallback) {
@@ -140,13 +187,13 @@ export default function StorePage({ store, hasError, errorCode }) {
     );
   }
 
-  // Handle server-side errors (500, 503, etc.)
+  // Handle server-side errors
   if (hasError && errorCode) {
-    // This will trigger Next.js to show your custom error page
     const Error = require('next/error').default;
     return <Error statusCode={errorCode} />;
   }
-// Fallback error handling (this shouldn't happen with proper SSR error handling)
+
+  // Fallback error handling
   if (!store) {
     return (
       <>
@@ -168,16 +215,14 @@ export default function StorePage({ store, hasError, errorCode }) {
     );
   }
 
-  const displayRate = getDisplayRate();
-  const rewardType = getRewardType();
-  const seoData = getSeoData();
-
   return (
     <>
       <Head>
         <title>{seoData.title}</title>
         <meta name="description" content={seoData.description} />
         <link rel="canonical" href={`https://bonusify.in/stores/${router.query.slug}`} />
+        <link rel="preconnect" href="https://bonusify.in" />
+        <link rel="dns-prefetch" href="https://bonusify.in" />
         <meta property="og:title" content={seoData.title} />
         <meta property="og:description" content={seoData.description} />
         <meta property="og:image" content={seoData.ogImage} />
@@ -201,7 +246,8 @@ export default function StorePage({ store, hasError, errorCode }) {
                     height={50} 
                     width={90} 
                     alt={store.brandName} 
-                    className="object-contain max-h-[50px] max-w-[90px]" 
+                    className="object-contain max-h-[50px] max-w-[90px]"
+                    priority
                   />
                   {store.branding?.badge && (
                     <span className="px-3 py-1 bg-red-500 text-white text-xs font-bold rounded-lg">
@@ -265,39 +311,12 @@ export default function StorePage({ store, hasError, errorCode }) {
             {/* Main Content */}
             <div className="lg:col-span-2 space-y-8">
               {/* Catalogue Carousel */}
-              {store.catalogue?.length > 0 && (
-                <div className="bg-white rounded-xl overflow-hidden">
-                  <div className="relative">
-                    <div 
-                      className="flex transition-transform duration-500" 
-                      style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-                    >
-                      {store.catalogue.map((item, i) => (
-                        <img 
-                          key={i} 
-                          src={item.imageUrl} 
-                          alt={item.altText || store.brandName} 
-                          className="w-full h-[210px] sm:h-[290px] md:h-[390px] lg:h-[350px] xl:h-[390px] object-cover flex-shrink-0" 
-                          onError={(e) => e.target.src = '/images/placeholder.jpg'} 
-                        />
-                      ))}
-                    </div>
-                    {store.catalogue.length > 1 && (
-                      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
-                        {store.catalogue.map((_, i) => (
-                          <button 
-                            key={i} 
-                            onClick={() => setCurrentSlide(i)} 
-                            className={`w-2 h-2 rounded-full transition-colors ${
-                              i === currentSlide ? 'bg-white' : 'bg-white/50'
-                            }`} 
-                          />
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              )}
+              <Carousel 
+                catalogue={store.catalogue} 
+                brandName={store.brandName}
+                currentSlide={currentSlide}
+                setCurrentSlide={setCurrentSlide}
+              />
 
               {/* Mobile Offers */}
               <div className="md:hidden bg-white rounded-xl shadow-sm border border-gray-200 p-4">
@@ -438,15 +457,16 @@ export default function StorePage({ store, hasError, errorCode }) {
             ))}
           </div>
         </Modal>
-              {/* Cashback Steps Section */}
-              <div className="mx-auto max-w-7xl">
-      <section className="xl:ml-9 ml-3 py-8">
-      
-        <div className="overflow-x-auto md:overflow-x-visible scrollbar-hide">
-          <FourStepCahback />
+
+        {/* Cashback Steps Section */}
+        <div className="mx-auto max-w-7xl">
+          <section className="xl:ml-9 ml-3 py-8">
+            <div className="overflow-x-auto md:overflow-x-visible scrollbar-hide">
+              <FourStepCahback />
+            </div>
+          </section>
         </div>
-      </section>
-        </div>
+
         {/* Mobile CTA */}
         <div className="fixed bottom-19 left-2 right-2 bg-gray-100 border border-gray-300 rounded-xl md:hidden z-10 shadow-lg">
           <div className="bg-gray-200 rounded-xl py-5 px-4">
@@ -490,25 +510,38 @@ export default function StorePage({ store, hasError, errorCode }) {
   );
 }
 
-// Server-Side Rendering with Custom Error Handling
+// Optimized Server-Side Rendering
 export async function getServerSideProps(context) {
   const { slug } = context.params;
+  
+  // Set cache headers for better performance
+  context.res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=60, stale-while-revalidate=120'
+  );
   
   try {
     const protocol = context.req.headers['x-forwarded-proto'] || 'http';
     const host = context.req.headers.host;
     const baseURL = `${protocol}://${host}`;
     
-    const response = await fetch(`${baseURL}/api/stores/${slug}`);
+    // Add timeout to prevent hanging requests
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
     
-    // Handle 404 - Store not found
+    const response = await fetch(`${baseURL}/api/stores/${slug}`, {
+      signal: controller.signal,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    
+    clearTimeout(timeoutId);
+    
     if (response.status === 404) {
-      return {
-        notFound: true
-      };
+      return { notFound: true };
     }
     
-    // Handle other HTTP errors (500, 503, etc.)
     if (!response.ok) {
       console.error(`API Error: ${response.status} - ${response.statusText}`);
       return {
@@ -522,14 +555,10 @@ export async function getServerSideProps(context) {
     
     const data = await response.json();
     
-    // Handle case where API returns success: false or no data
     if (!data.success || !data.data) {
-      return {
-        notFound: true, // This will show your custom 404 page
-      };
+      return { notFound: true };
     }
     
-    // Success case
     return {
       props: {
         store: data.data,
@@ -541,7 +570,6 @@ export async function getServerSideProps(context) {
   } catch (error) {
     console.error('Error fetching store data:', error);
     
-    // Network or other errors - show 500 page
     return {
       props: {
         store: null,
