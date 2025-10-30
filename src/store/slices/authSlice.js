@@ -3,9 +3,9 @@ import { supabase } from "@/lib/superbase";
 import bcrypt from "bcryptjs";
 
 // HELPER FUNCTIONS
-const generateOTP = () => {
-  return Math.floor(100000 + Math.random() * 900000).toString();
-};
+// const generateOTP = () => {
+//   return Math.floor(100000 + Math.random() * 900000).toString();
+// };
 
 const formatPhone = (phone) => {
   const digits = phone.replace(/\D/g, "");
@@ -98,8 +98,7 @@ export const sendOTPAction = createAsyncThunk(
   "auth/sendOTP",
   async (phone, thunkAPI) => {
     try {
-      const isDevelopment = process.env.NODE_ENV === "development";
-      const otp = isDevelopment ? "1234" : generateOTP();
+      const otp = "1234";
       const formattedPhone = formatPhone(phone);
 
       // TODO: Send actual SMS in production
