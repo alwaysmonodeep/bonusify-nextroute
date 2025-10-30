@@ -282,9 +282,9 @@ export default function StorePage({ store, hasError, errorCode }) {
 
               {/* Top Offers Card */}
               <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-                <h1 className="text-lg font-bold text-gray-900 mb-4">{store.brandName} Top Offers & Coupons</h1>
+                <h1 className="text-lg font-bold text-gray-900 mb-6">{store.brandName} Top Offers & Coupons</h1>
                 {store.topOfferAndCoupon?.length > 0 ? (
-                  <div className="space-y-3">
+                  <div className="space-y-3 font-medium">
                     {store.topOfferAndCoupon.slice(0, 2).map((offer, index) => (
                       <OfferItem 
                         key={index} 
@@ -320,9 +320,9 @@ export default function StorePage({ store, hasError, errorCode }) {
 
               {/* Mobile Offers */}
               <div className="md:hidden bg-white rounded-xl shadow-sm border border-gray-200 p-4">
-                <h3 className="text-sm font-bold text-gray-900 mb-3">{store.brandName} Top Offers & Coupons</h3>
+                <h3 className="text-sm font-bold text-gray-900 mb-6">{store.brandName} Top Offers & Coupons</h3>
                 {store.topOfferAndCoupon?.length > 0 ? (
-                  <div className="space-y-3">
+                  <div className="space-y-3 font-medium">
                     {store.topOfferAndCoupon.slice(0, 2).map((offer, index) => (
                       <OfferItem 
                         key={index} 
@@ -372,8 +372,8 @@ export default function StorePage({ store, hasError, errorCode }) {
                   <div className="space-y-4">
                     {store.termsAndConditions.slice(0, 3).map((condition, i) => (
                       <div key={i} className="flex gap-3">
-                        <div className="w-2 h-2 bg-gray-500 rounded-full mt-2 flex-shrink-0" />
-                        <p className="text-gray-700 text-sm md:text-base leading-relaxed">{condition}</p>
+                        <div className="w-2 h-2 bg-gray-900 rounded-full mt-2 flex-shrink-0" />
+                        <p className="text-gray-900 text-sm md:text-base leading-relaxed">{condition}</p>
                       </div>
                     ))}
                   </div>
@@ -451,8 +451,8 @@ export default function StorePage({ store, hasError, errorCode }) {
           <div className="space-y-4">
             {store.termsAndConditions?.map((condition, i) => (
               <div key={i} className="flex gap-3">
-                <div className="w-2 h-2 bg-gray-400 rounded-full mt-2 flex-shrink-0" />
-                <p className="text-gray-600 text-xs md:text-base leading-relaxed">{condition}</p>
+                <div className="w-2 h-2 bg-gray-700 rounded-full mt-2 flex-shrink-0" />
+                <p className="text-gray-900 text-xs md:text-base leading-relaxed">{condition}</p>
               </div>
             ))}
           </div>
