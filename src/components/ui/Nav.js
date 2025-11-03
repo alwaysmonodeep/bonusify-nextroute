@@ -1,4 +1,4 @@
-// Updated Nav component with search redirect functionality
+// Updated Nav component with back button navigation
 "use client";
 import React, { useState, useRef, useEffect } from "react";
 import { CiMenuFries } from "react-icons/ci";
@@ -11,8 +11,10 @@ import {
   MdHistory,
   MdClose,
   MdArrowForward,
+  MdKeyboardBackspace,
 } from "react-icons/md";
-import { FaSignOutAlt } from "react-icons/fa";
+import { FaSignOutAlt,FaRegMoneyBillAlt } from "react-icons/fa";
+import { IoHomeOutline } from "react-icons/io5";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -22,20 +24,19 @@ import { supabase } from "@/lib/superbase";
 
 // Sidebar & Bottom Nav Items
 const menuItems = [
-  { href: "/order-history", icon: MdHistory, label: "Orders" },
   {
-    href: "/refer-and-earn",
-    icon: MdOutlineSupervisedUserCircle,
-    label: "Refer",
+    href: "/",
+    icon: IoHomeOutline,
+    label: "Home",
   },
+  { href: "/order-history", icon: MdHistory, label: "Orders" },
   { href: "/wallet", icon: MdAccountBalanceWallet, label: "Wallet" },
-  { href: "/help", icon: MdHelpOutline, label: "Help" },
+  { href: "/paybills", icon: FaRegMoneyBillAlt, label: "Pay Bills" },
   { href: "/myaccount", icon: MdOutlineAccountCircle, label: "Profile" },
 ];
 
 // Initial Notification Data
 const initialNotifications = [
-
   {
     id: 1,
     title: "Welcome Bonus",
@@ -58,10 +59,18 @@ function Nav({ sidebarOpen, setSidebarOpen }) {
   // Check if current page is home page
   const isHomePage = router.pathname === "/";
 
+  // Check if current page is auth page (login/signup)
+  const isAuthPage = router.pathname.startsWith("/auth");
+
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
   const toggleNotifications = () => setShowNotifications(!showNotifications);
 
   const unreadCount = notifications.filter((n) => !n.read).length;
+
+  // Handle back navigation
+  const handleBack = () => {
+    router.back();
+  };
 
   // Updated search functionality with proper navigation
   const handleSearch = (query) => {
@@ -79,13 +88,7 @@ function Nav({ sidebarOpen, setSidebarOpen }) {
     router.push(`/stores/${searchSlug}`);
   };
 
-  // ✅ Helper: Clear all Supabase + Redux local data
-
-  // const showMessage = (msg) => {
-  //   setMessage(msg);
-  //   setTimeout(() => setMessage(""), 2500);
-  // };
-  // ✅ Logout user completely
+  // Logout user completely
   const handleLogout = async () => {
     if (!window.confirm("Are you sure you want to logout?")) return;
 
@@ -133,6 +136,11 @@ function Nav({ sidebarOpen, setSidebarOpen }) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Don't render Nav on auth pages - AFTER all hooks
+  if (isAuthPage) {
+    return null;
+  }
+
   return (
     <>
       {/* Top Navbar */}
@@ -144,20 +152,37 @@ function Nav({ sidebarOpen, setSidebarOpen }) {
         {/* Main navbar section */}
         <div className="h-16 flex items-center justify-between">
           {/* Left Section */}
-          <div className="flex items-center gap-8 pl-7">
+          <div className="flex items-center gap-8 pl-4 md:pl-7">
+            {/* Menu Icon - Shows when authenticated (always visible on desktop) */}
             {isAuthenticated && (
               <CiMenuFries
                 className="hidden xl:block text-black text-4xl pr-2 cursor-pointer"
                 onClick={toggleSidebar}
               />
             )}
-            <Link href="/">
+
+            {/* Back button - Shows on non-home pages */}
+            {!isHomePage && (
+              <button
+                onClick={handleBack}
+                className="flex ml-1 items-center gap-2 px-2 py-2 rounded-lg transition-all duration-300 hover:-translate-x-0.5 active:translate-x-0 cursor-pointer"
+                aria-label="Go back"
+              >
+                <MdKeyboardBackspace className="text-2xl md:text-3xl text-[#111111]" />
+                <span className="text-md sm:text-lg xl:hidden font-semibold text-[#111111] pt-0 sm:pt-1">
+                  Go Back
+                </span>
+              </button>
+            )}
+
+            {/* Logo - Always visible on home page, hidden on mobile when not home page */}
+            <Link href="/" className={!isHomePage ? "hidden xl:block" : ""}>
               <Image
                 src="/bonusifygreen.png"
-                width={90}
+                width={80}
                 height={50}
                 alt="Logo"
-                className="md:w-[110px] w-[90px] xl:pl-4"
+                className="md:w-[100px] w-[90px] pl-1"
               />
             </Link>
           </div>
@@ -175,8 +200,8 @@ function Nav({ sidebarOpen, setSidebarOpen }) {
             {/* Wallet - Show for both logged in and not logged in */}
             <div className="flex items-center pr-5 border-r transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0">
               <Link href={"/wallet"}>
-                <div className="hidden xl:flex items-center"><span className="text-3xl font-medium text-black">₹</span>
-                  {/* <MdAccountBalanceWallet className="text-2xl md:text-3xl text-[#111111] hover:text-gray-800" /> */}
+                <div className="hidden xl:flex items-center">
+                  <span className="text-3xl font-medium text-black">₹</span>
                   <span className="font-semibold pl-1 text-[#111111]">
                     {isAuthenticated ? "0" : "0"}
                   </span>

@@ -322,7 +322,7 @@ export default function StorePage({ store, hasError, errorCode }) {
               <div className="md:hidden bg-white rounded-xl shadow-sm border border-gray-200 p-4">
                 <h3 className="text-sm font-bold text-gray-900 mb-6">{store.brandName} Top Offers & Coupons</h3>
                 {store.topOfferAndCoupon?.length > 0 ? (
-                  <div className="space-y-3 font-medium">
+                  <div className="space-y-2 font-medium">
                     {store.topOfferAndCoupon.slice(0, 2).map((offer, index) => (
                       <OfferItem 
                         key={index} 
