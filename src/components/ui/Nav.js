@@ -1,19 +1,17 @@
-// Updated Nav component with back button navigation
+// Updated Nav component with active navigation states
 "use client";
 import React, { useState, useRef, useEffect } from "react";
 import { CiMenuFries } from "react-icons/ci";
 import {
   MdOutlineAccountCircle,
   MdNotifications,
-  MdHelpOutline,
   MdAccountBalanceWallet,
-  MdOutlineSupervisedUserCircle,
   MdHistory,
   MdClose,
   MdArrowForward,
   MdKeyboardBackspace,
 } from "react-icons/md";
-import { FaSignOutAlt,FaRegMoneyBillAlt } from "react-icons/fa";
+import { FaSignOutAlt, FaRegMoneyBillAlt } from "react-icons/fa";
 import { IoHomeOutline } from "react-icons/io5";
 import Link from "next/link";
 import Image from "next/image";
@@ -49,7 +47,7 @@ const initialNotifications = [
 function Nav({ sidebarOpen, setSidebarOpen }) {
   const [showNotifications, setShowNotifications] = useState(false);
   const [notifications, setNotifications] = useState(initialNotifications);
-  const [message, setMessage] = useState("");
+  // const [message, setMessage] = useState("");
   const notificationRef = useRef(null);
   const router = useRouter();
 
@@ -61,6 +59,19 @@ function Nav({ sidebarOpen, setSidebarOpen }) {
 
   // Check if current page is auth page (login/signup)
   const isAuthPage = router.pathname.startsWith("/auth");
+
+  // Helper function to check if route is active
+  const isActiveRoute = (href) => {
+    // Exact match for home page
+    if (href === "/" && router.pathname === "/") {
+      return true;
+    }
+    // For other pages, check if pathname starts with href (but not home)
+    if (href !== "/" && router.pathname.startsWith(href)) {
+      return true;
+    }
+    return false;
+  };
 
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
   const toggleNotifications = () => setShowNotifications(!showNotifications);
@@ -350,17 +361,24 @@ function Nav({ sidebarOpen, setSidebarOpen }) {
           <div className="h-16 border-b border-gray-200" />
           <nav className="flex-1 py-11">
             <ul className="space-y-11 pl-1">
-              {menuItems.map(({ href, icon: Icon, label }, index) => (
-                <li key={index}>
-                  <Link
-                    href={href}
-                    className="flex items-center gap-4 text-[#111111] hover:shadow-xs hover:text-[#4E897D] px-4 py-1 transition-all duration-300 hover:-translate-x-0.5 active:translate-x-0"
-                  >
-                    <Icon className="text-3xl" />
-                    {sidebarOpen && <span>{label}</span>}
-                  </Link>
-                </li>
-              ))}
+              {menuItems.map(({ href, icon: Icon, label }, index) => {
+                const isActive = isActiveRoute(href);
+                return (
+                  <li key={index}>
+                    <Link
+                      href={href}
+                      className={`flex items-center gap-4 px-4 py-1 transition-all duration-300 hover:-translate-x-0.5 active:translate-x-0 ${
+                        isActive
+                          ? "text-[#4E897D] font-semibold border-l-4 border-[#4E897D]"
+                          : "text-[#111111] hover:shadow-xs hover:text-[#4E897D]"
+                      }`}
+                    >
+                      <Icon className="text-3xl" />
+                      {sidebarOpen && <span>{label}</span>}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </nav>
 
@@ -397,18 +415,33 @@ function Nav({ sidebarOpen, setSidebarOpen }) {
       {isAuthenticated && (
         <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 xl:hidden z-50">
           <div className="flex items-center justify-around py-2">
-            {menuItems.map(({ href, icon: Icon, label }, index) => (
-              <Link
-                key={index}
-                href={href}
-                className="flex flex-col items-center py-2 px-3 min-w-0 flex-1"
-              >
-                <Icon className="text-xl text-[#111111] hover:text-[#4E897D]" />
-                <span className="text-xs md:text-base text-center truncate w-full text-[#332B4E]">
-                  {label}
-                </span>
-              </Link>
-            ))}
+            {menuItems.map(({ href, icon: Icon, label }, index) => {
+              const isActive = isActiveRoute(href);
+              return (
+                <Link
+                  key={index}
+                  href={href}
+                  className={`flex flex-col items-center py-2 px-3 min-w-0 flex-1 rounded-lg transition-all duration-300`}
+                >
+                  <Icon
+                    className={`text-xl transition-colors duration-300 ${
+                      isActive
+                        ? "text-[#4E897D]"
+                        : "text-[#111111] hover:text-[#4E897D]"
+                    }`}
+                  />
+                  <span
+                    className={`text-xs md:text-base text-center truncate w-full transition-colors duration-300 ${
+                      isActive
+                        ? "text-[#4E897D] font-semibold"
+                        : "text-[#332B4E]"
+                    }`}
+                  >
+                    {label}
+                  </span>
+                </Link>
+              );
+            })}
           </div>
         </div>
       )}

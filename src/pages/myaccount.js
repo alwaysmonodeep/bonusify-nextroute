@@ -1,3 +1,4 @@
+
 "use client";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -51,6 +52,9 @@ export default function FunctionalAccountPage() {
   const router = useRouter();
   const { profile, loading } = useSelector((state) => state.auth);
 
+  // Animation state
+  const [mounted, setMounted] = useState(false);
+
   const [personalDetails, setPersonalDetails] = useState({
     fname: "",
     mobile: "",
@@ -63,7 +67,7 @@ export default function FunctionalAccountPage() {
 
   const [pinOtpFlow, setPinOtpFlow] = useState({
     active: false,
-    step: 1, // 1 = OTP verification, 2 = Set new PIN
+    step: 1,
     otp: "",
     timer: 0,
   });
@@ -75,7 +79,6 @@ export default function FunctionalAccountPage() {
   const [message, setMessage] = useState("");
   const [errors, setErrors] = useState({});
 
-  // OTP states
   const [otpFlow, setOtpFlow] = useState({
     active: false,
     field: null,
@@ -85,7 +88,6 @@ export default function FunctionalAccountPage() {
     timer: 0,
   });
 
-  // Delete account states
   const [deleteFlow, setDeleteFlow] = useState({
     step: 0,
     reason: "",
@@ -93,6 +95,11 @@ export default function FunctionalAccountPage() {
     otp: "",
     timer: 0,
   });
+
+  // Trigger animations on mount
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (!profile) {
@@ -187,7 +194,6 @@ export default function FunctionalAccountPage() {
         setOtpFlow({ ...otpFlow, step: 2, otp: "" });
         showMessage("Verified!");
       } else {
-        // Step 3 - Update phone
         await dispatch(updateUserPhone({ 
           userId: profile.id, 
           phone: otpFlow.newValue 
@@ -220,7 +226,6 @@ export default function FunctionalAccountPage() {
   };
 
   const handleUpdatePin = async () => {
-    // Validate PIN fields
     const newPinValid = validateField("pin", pinDetails.newPin);
     const confirmValid = validateField("confirmPin", pinDetails.confirmPin);
     
@@ -230,7 +235,7 @@ export default function FunctionalAccountPage() {
     try {
       await dispatch(updateUserPin({
         userId: profile.id,
-        currentPin: null, // No current PIN needed with OTP verification
+        currentPin: null,
         newPin: pinDetails.newPin,
       })).unwrap();
       showMessage("PIN updated successfully!");
@@ -299,14 +304,14 @@ export default function FunctionalAccountPage() {
       href: "/help",
       type: "link"
     },
- {
-  id: "logout",
-  icon: FaSignOutAlt,
-  title: "Logout",
-  description: "Sign out from your account",
-  action: () => setShowLogoutModal(true), // Change this
-  type: "button"
-},
+    {
+      id: "logout",
+      icon: FaSignOutAlt,
+      title: "Logout",
+      description: "Sign out from your account",
+      action: () => setShowLogoutModal(true),
+      type: "button"
+    },
     {
       id: "delete",
       icon: FaTrash,
@@ -321,7 +326,7 @@ export default function FunctionalAccountPage() {
   if (!profile) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="text-gray-600">Loading...</div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
       </div>
     );
   }
@@ -331,8 +336,12 @@ export default function FunctionalAccountPage() {
       {/* Header */}
       <div className="bg-gray-300 border-b border-gray-200 pt-8 pb-24 px-4">
         <div className="max-w-4xl mx-auto">
-          {/* Account Card */}
-          <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+          {/* Account Card with Animation */}
+          <div 
+            className={`bg-white rounded-2xl p-6 border border-gray-200 shadow-sm transition-all duration-800 ${
+              mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+            }`}
+          >
             <div className="flex items-center space-x-4 mb-4">
               <div className="w-14 h-14 rounded-full bg-gray-100 flex items-center justify-center text-2xl font-semibold text-gray-700">
                 {profile.full_name?.charAt(0) || 'U'}
@@ -370,10 +379,10 @@ export default function FunctionalAccountPage() {
         </div>
       </div>
 
-      {/* Menu Items */}
+      {/* Menu Items with Staggered Animation */}
       <div className="max-w-4xl mx-auto px-4 -mt-16 pb-8">
         <div className="space-y-3">
-          {menuItems.map((item) => {
+          {menuItems.map((item, idx) => {
             const content = (
               <div className="flex items-center space-x-4">
                 <div className="p-3 md:p-4 rounded-xl flex items-center justify-center flex-shrink-0 bg-gray-100">
@@ -389,12 +398,17 @@ export default function FunctionalAccountPage() {
               </div>
             );
 
+            const animationClass = `transition-all duration-100 ${
+              mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+            }`;
+
             if (item.type === "link") {
               return (
                 <Link
                   key={item.id}
                   href={item.href}
-                  className="block w-full bg-white rounded-xl p-5 shadow-sm hover:shadow-md transition-all duration-200 border border-gray-200 hover:border-gray-300"
+                  className={`block w-full bg-white rounded-xl p-5 shadow-sm hover:shadow-md transition-all duration-200 border border-gray-200 hover:border-gray-300 ${animationClass}`}
+                  style={{ animationDelay: `${idx * 100}ms` }}
                 >
                   {content}
                 </Link>
@@ -410,7 +424,8 @@ export default function FunctionalAccountPage() {
                   item.danger 
                     ? 'border-red-200 hover:border-red-300' 
                     : 'border-gray-200 hover:border-gray-300'
-                } cursor-pointer disabled:opacity-50`}
+                } cursor-pointer disabled:opacity-50 ${animationClass}`}
+                style={{ animationDelay: `${idx * 100}ms` }}
               >
                 {content}
               </button>
@@ -419,13 +434,12 @@ export default function FunctionalAccountPage() {
         </div>
       </div>
 
-      {/* Personal Details Modal */}
+      {/* All modals remain the same - Personal Details Modal */}
       {showPersonalDetails && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 animate-fadeIn">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto animate-slideUp">
             <div className="sticky top-0 bg-white border-b border-gray-200 p-6 flex justify-between items-center">
               <h2 className="text-xl font-semibold text-gray-900">Update Personal Details</h2>
-             
             </div>
 
             <div className="p-6 space-y-4">
@@ -488,8 +502,8 @@ export default function FunctionalAccountPage() {
 
       {/* Change PIN Modal */}
       {showPinChange && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 animate-fadeIn">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full animate-slideUp">
             <div className="p-6 border-b border-gray-200 flex justify-between items-center">
               <h2 className="text-xl font-semibold text-gray-900">Change Login PIN</h2>
               <button
@@ -532,7 +546,6 @@ export default function FunctionalAccountPage() {
           </div>
         </div>
       )}
-
       {/* PIN OTP Modal */}
       {pinOtpFlow.active && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">

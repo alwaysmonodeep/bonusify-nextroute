@@ -25,7 +25,6 @@ export default function PayBillsComingSoon() {
         <title>Pay Bills Online - Mobile, Electricity, Broadband & More | Coming Soon</title>
         <meta name="title" content="Pay Bills Online - Mobile, Electricity, Broadband & More | Coming Soon" />
         <meta name="description" content="All your billing needs in one place. Pay mobile bills, electricity, broadband, credit card bills and manage all payments effortlessly. Coming soon with the best payment experience." />
-        <meta name="keywords" content="pay bills online, mobile recharge, electricity bill payment, broadband bill, credit card payment, online payment, bill payment app" />
         <meta name="author" content="Your Company Name" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="robots" content="index, follow" />
